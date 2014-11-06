@@ -39,7 +39,7 @@
         [layer setBorderColor:[[UIColor colorWithRed:63/255.0 green:107/255.0 blue:252/255.0 alpha:1.0] CGColor]];
         [self.contentView addSubview:headerImage];
         
-        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5, self.frame.size.width - 120, TableHeader/2)];
+        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5, screenWidth - 120, TableHeader/2)];
         nameLbl.textAlignment = NSTextAlignmentLeft;
         nameLbl.text = @"迪恩·温彻斯特";
         nameLbl.font = [UIFont systemFontOfSize:15.0];
@@ -48,7 +48,7 @@
 
         
         
-        UILabel *introLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5 + TableHeader/2 , self.frame.size.width - 120, TableHeader/2)];
+        UILabel *introLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5 + TableHeader/2 , screenWidth - 120, TableHeader/2)];
         introLbl.numberOfLines = 1;
         introLbl.font = [UIFont systemFontOfSize:14.0];
         introLbl.textColor = [UIColor grayColor];
@@ -104,6 +104,8 @@
 
 - (void)setYMViewWith:(YMTextData *)ymData{
     
+    NSLog(@"width = %f",screenWidth);
+    
     tempDate = ymData;
    
     for ( int i = 0; i < _ymShuoshuoArray.count; i ++) {
@@ -116,7 +118,7 @@
     
     [_ymShuoshuoArray removeAllObjects];
     
-    WFTextView *textView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X, 15 + TableHeader, self.frame.size.width - 2 * offSet_X, 0)];
+    WFTextView *textView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X, 15 + TableHeader, screenWidth - 2 * offSet_X, 0)];
     textView.delegate = self;
     textView.attributedData = ymData.attributedDataWF;
     textView.isFold = ymData.foldOrNot;
@@ -127,7 +129,7 @@
     BOOL foldOrnot = ymData.foldOrNot;
     float hhhh = foldOrnot?ymData.shuoshuoHeight:ymData.unFoldShuoHeight;
     
-    textView.frame = CGRectMake(offSet_X, 15 + TableHeader, self.frame.size.width - 2 * offSet_X, hhhh);
+    textView.frame = CGRectMake(offSet_X, 15 + TableHeader, screenWidth - 2 * offSet_X, hhhh);
     
    [_ymShuoshuoArray addObject:textView];
     
@@ -165,7 +167,7 @@
   
     for (int  i = 0; i < [ymData.showImageArray count]; i++) {
         
-        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(20*(i%3 + 1) + 80*(i%3), TableHeader + 10 * ((i/3) + 1) + (i/3) *  ShowImage_H + hhhh + kDistance + (ymData.islessLimit?0:30), 80, ShowImage_H)];
+        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(((screenWidth - 240)/4)*(i%3 + 1) + 80*(i%3), TableHeader + 10 * ((i/3) + 1) + (i/3) *  ShowImage_H + hhhh + kDistance + (ymData.islessLimit?0:30), 80, ShowImage_H)];
             image.userInteractionEnabled = YES;
         
             YMTapGestureRecongnizer *tap = [[YMTapGestureRecongnizer alloc] initWithTarget:self action:@selector(tapImageView:)];
@@ -205,7 +207,7 @@
     
     for (int i = 0; i < ymData.replyDataSource.count; i ++ ) {
        
-        YMTextView *_ilcoreText = [[YMTextView alloc] initWithFrame:CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, self.frame.size.width - offSet_X * 2, 0)];
+        YMTextView *_ilcoreText = [[YMTextView alloc] initWithFrame:CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2, 0)];
         
         if (i == 0) {
             backView_Y = TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30);
@@ -228,9 +230,9 @@
     
     backView_H += (ymData.replyDataSource.count - 1)*10;
     
-    replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, self.frame.size.width - offSet_X * 2, backView_H + 20 - 8);//微调
+    replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
     
-    _replyBtn.frame = CGRectMake(self.frame.size.width - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
+    _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
 }
 
 #pragma mark - ilcoreTextDelegate

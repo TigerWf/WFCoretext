@@ -29,7 +29,7 @@
 @property (nonatomic,assign) NSInteger stamp;
 @property (nonatomic,strong) YMButton *replyBtn;
 
-- (void)setShowImage:(NSMutableArray *)dataArray;
+
 
 - (void)setYMViewWith:(YMTextData *)ymData;
 

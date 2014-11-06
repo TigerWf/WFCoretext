@@ -19,8 +19,8 @@
 #define kReplyBtnDistance 30 //回复按钮距离
 #define AttributedImageNameKey      @"ImageName"
 
-
-#define limitline 4
+#define screenWidth  [UIScreen mainScreen].bounds.size.width
+#define limitline 2
 #define kSelf_SelectedColor [UIColor colorWithWhite:0 alpha:0.4] //点击背景  颜色
 #define kUserName_SelectedColor [UIColor colorWithWhite:0 alpha:0.25]//点击姓名颜色
 
@@ -32,7 +32,7 @@
 
 #define kContentText4 @"迪恩:活着本来没有什么意义，但只要活着就会发现很多有趣的13688919929事，就像你发现了花，我又发现你一样[em:03:]。"
 
-#define kContentText5 @"先知:地狱的房间已满，于是，[em:02:]，死亡爬上了人间"
+#define kContentText5 @"先知:地狱的房间已满，于是，[em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:]死亡爬上了人间"
 
 #define kContentText6 @"C叔:如果一个人觉得他自己死的很不值 就会把诅咒留在他生前接触过的地方 只要有人经过这些地方 就会被咒语套中"
 
@@ -40,7 +40,7 @@
 
 #define kShuoshuoText2 @"李太啊，我的饺子最好吃，劲道、柔软、不露馅[em:03:]揉面的时候要一直揉到面团表面象剥了壳的鸡蛋，吃起来一包鲜汁"
 
-#define kShuoshuoText3 @"如果晚上月亮升起的时候，月光www.baidu.com照到我的门口，我希望[em:03:]月光女神能满足我一个愿望，我想要一双人类的手。我想用我的双手把我的爱人紧紧地拥在怀中，哪怕只有一次。如果我从来没有品尝过温暖的感觉，也许我不会这样寒冷；如果我从没有感受过爱情的甜美，我也许就不会这样地痛苦。如果我没有遇到善良的佩格，如果我从来不曾离开过我的房间，我就不会知道我原来是这样的孤独"
+#define kShuoshuoText3 @"如果晚上月亮升起的时候，月光www.baidu.com照到我的门口，我希望[em:03:]月光www.baidu.com女神能满足我一个愿望，我想要一双人类的手。我想用我的双手把我的爱人紧紧地拥在怀中，哪怕只有一次。如果我从来没有品尝过温暖的感觉，也许我不会这样寒冷；如果我从没有感受过爱情的甜美，我也许就不会这样地痛苦。如果我没有遇到善良的佩格，如果我从来不曾离开过我的房间，我就不会知道我原来是这样的孤独"
 
 #define kShuoshuoText4 @"人有的时候很脆弱，会遇到很多不如意18618881888的事，日积月累就会形成心结，就算想告诉亲戚朋友，他们也未必懂得怎样[em:03:]开解"
 

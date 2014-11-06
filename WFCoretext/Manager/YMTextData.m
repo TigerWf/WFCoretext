@@ -164,7 +164,7 @@
 
     [self matchString:newString fromView:isYM];
     
-    WFTextView *_wfcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(20,10, 280, 0)];
+    WFTextView *_wfcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(20,10, sizeWidth - 2*20, 0)];
     
     _wfcoreText.isDraw = NO;
     
