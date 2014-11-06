@@ -281,7 +281,7 @@
     }
    // NSLog(@"alloc reply");
         
-    replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, 320,44) andAboveView:self.view];
+    replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
     replyView.delegate = self;
     replyView.replyTag = sender.tag;
     [self.view addSubview:replyView];

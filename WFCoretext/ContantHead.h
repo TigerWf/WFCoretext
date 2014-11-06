@@ -20,7 +20,9 @@
 #define AttributedImageNameKey      @"ImageName"
 
 #define screenWidth  [UIScreen mainScreen].bounds.size.width
-#define limitline 2
+#define screenHeight  [UIScreen mainScreen].bounds.size.height
+
+#define limitline 4
 #define kSelf_SelectedColor [UIColor colorWithWhite:0 alpha:0.4] //点击背景  颜色
 #define kUserName_SelectedColor [UIColor colorWithWhite:0 alpha:0.25]//点击姓名颜色
 

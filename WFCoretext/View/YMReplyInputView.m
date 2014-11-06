@@ -7,7 +7,7 @@
 //
 
 #import "YMReplyInputView.h"
-
+#import "ContantHead.h"
 
 @interface NSString (YMReplyInputView)
 @end
@@ -89,7 +89,7 @@
     textViewBackgroundView.enabled = NO;
 	[self addSubview:textViewBackgroundView];
     
-	textView = [[UITextView alloc] initWithFrame:CGRectMake(70.0f, topGap, 185, 0)];
+	textView = [[UITextView alloc] initWithFrame:CGRectMake(70.0f, topGap, 185 + screenWidth - 320, 0)];
     textView.backgroundColor = [UIColor clearColor];
 	textView.delegate = self;
     textView.contentInset = UIEdgeInsetsMake(-4, -2, -4, 0);
@@ -127,7 +127,7 @@
     [super layoutSubviews];
     
   //最上面的一条细线
-    UILabel *dividLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 321, 1)];
+    UILabel *dividLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 1)];
    
     dividLbl.backgroundColor = [UIColor colorWithRed:227/255.0 green:227/255.0 blue:229/255.0 alpha:1.0];
     [self addSubview:dividLbl];
@@ -136,13 +136,13 @@
     self.backgroundColor = [UIColor whiteColor];
   
 
-    textView.frame = CGRectMake(5, textView.frame.origin.y, 310 - 65, textView.frame.size.height);
+    textView.frame = CGRectMake(5, textView.frame.origin.y, screenWidth - 10 - 65, textView.frame.size.height);
     CGRect f = textView.frame;
     f.size.height = f.size.height+3;
     textViewBackgroundView.frame = f;
     lblPlaceholder.frame = CGRectMake(8, topGap+2, 230, 20);
     lblPlaceholder.backgroundColor = [UIColor clearColor];
-    sendButton.frame = CGRectMake(310 - 55,textView.frame.origin.y, 55, 27);
+    sendButton.frame = CGRectMake(screenWidth - 10 - 55,textView.frame.origin.y, 55, 27);
 }
 
 - (void) awakeFromNib
@@ -194,7 +194,7 @@
     
     if (self)
     {
-        tapView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
+        tapView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, screenHeight)];
         tapView.backgroundColor = [UIColor blackColor];
         tapView.userInteractionEnabled = YES;
         [bgView addSubview:tapView];
