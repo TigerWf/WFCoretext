@@ -104,7 +104,7 @@
 
 - (void)setYMViewWith:(YMTextData *)ymData{
     
-    NSLog(@"width = %f",screenWidth);
+   // NSLog(@"width = %f",screenWidth);
     
     tempDate = ymData;
    
@@ -230,9 +230,23 @@
     
     backView_H += (ymData.replyDataSource.count - 1)*10;
     
-    replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
+   
     
-    _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
+    if (ymData.replyDataSource.count == 0) {//没回复的时候
+        
+        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, 0, 0);
+        _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance - 24, 40, 18);
+        
+    }else{
+        
+        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
+        
+        _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
+    
+    
+    }
+    
+  
 }
 
 #pragma mark - ilcoreTextDelegate

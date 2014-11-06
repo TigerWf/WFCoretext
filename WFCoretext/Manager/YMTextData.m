@@ -41,7 +41,7 @@
     
     isYM = YES;
     float height = .0f;
-    
+    //NSLog(@" === %@",self.replyDataSource);
     
     for (int i = 0; i < self.replyDataSource.count; i ++ ) {
         

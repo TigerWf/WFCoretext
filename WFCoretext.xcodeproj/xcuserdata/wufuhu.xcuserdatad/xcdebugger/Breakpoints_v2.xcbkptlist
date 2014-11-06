@@ -296,11 +296,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WFCoretext/View/YMTableViewCell.m"
-            timestampString = "436871593.289264"
+            timestampString = "436962416.674449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "-tapImageView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -318,22 +318,6 @@
             startingLineNumber = "97"
             endingLineNumber = "97"
             landmarkName = "-changeBig:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WFCoretext/Manager/YMTextData.m"
-            timestampString = "436785682.295343"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-calculateShowImageHeight"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -376,11 +360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WFCoretext/Manager/ViewController/WXViewController.m"
-            timestampString = "436783638.733999"
+            timestampString = "436962933.221526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "-replyMessage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -391,28 +375,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WFCoretext/Manager/ViewController/WXViewController.m"
-            timestampString = "436784400.11061"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "WFCoretext/View/YMTableViewCell.m"
-            timestampString = "436871593.289264"
+            timestampString = "436961659.718294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "-setYMViewWith:"
             landmarkType = "5">
          </BreakpointContent>
@@ -436,38 +404,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WFCoretext/Manager/YMTextData.m"
-            timestampString = "436784836.168761"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "-calculateReplyHeightWithWidth:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WFCoretext/Manager/YMTextData.m"
-            timestampString = "436785364.196332"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "-calculateReplyHeightWithWidth:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -478,22 +414,6 @@
             startingLineNumber = "118"
             endingLineNumber = "118"
             landmarkName = "-matchString:fromView:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WFCoretext/Manager/YMTextData.m"
-            timestampString = "436785364.196332"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "-calculateReplyHeightWithWidth:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -520,11 +440,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WFCoretext/Manager/ViewController/WXViewController.m"
-            timestampString = "436785522.320398"
+            timestampString = "436962933.221526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-YMReplyInputWithReply:appendTag:"
             landmarkType = "5">
          </BreakpointContent>
@@ -535,13 +455,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WFCoretext/Manager/NSString+NSString_ILExtension.m"
-            timestampString = "436858543.621832"
+            filePath = "WFCoretext/View/YMTableViewCell.m"
+            timestampString = "436962621.368444"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "-itemsForPattern:captureGroupIndex:"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "-setYMViewWith:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WFCoretext/View/YMTableViewCell.m"
+            timestampString = "436962806.610251"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "-setYMViewWith:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

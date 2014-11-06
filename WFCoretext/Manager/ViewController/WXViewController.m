@@ -198,7 +198,6 @@
    
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
-    
     return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance;
     
 }
