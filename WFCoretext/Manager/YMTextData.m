@@ -10,12 +10,13 @@
 #import "ContantHead.h"
 #import "ILRegularExpressionManager.h"
 #import "NSString+NSString_ILExtension.h"
-#import "YMTextView.h"
+
 #import "WFTextView.h"
 
 @implementation YMTextData{
     
-    BOOL isYM;
+    BOOL isReplyView;
+    int tempInt;
 }
 
 
@@ -35,15 +36,17 @@
     return self;
 }
 
-//计算YMTextView高度
+//计算replyview高度
 - (float) calculateReplyHeightWithWidth:(float)sizeWidth{
     
     
-    isYM = YES;
+    isReplyView = YES;
     float height = .0f;
     //NSLog(@" === %@",self.replyDataSource);
     
     for (int i = 0; i < self.replyDataSource.count; i ++ ) {
+        
+        tempInt = i;
         
         NSString *matchString = [self.replyDataSource objectAtIndex:i];
         
@@ -53,73 +56,80 @@
                                                            withString:PlaceHolder];
         //存新的
         [self.completionReplySource addObject:newString];
-       
-       
-    
-        [self matchString:newString fromView:isYM];
-      
-        YMTextView *_ilcoreText = [[YMTextView alloc] initWithFrame:CGRectMake(offSet_X,10, sizeWidth - offSet_X * 2, 0)];
+        
+        
+        
+        [self matchString:newString fromView:isReplyView];
+        
+        WFTextView *_ilcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X,10, sizeWidth - offSet_X * 2, 0)];
         
         _ilcoreText.isDraw = NO;
         
         [_ilcoreText setOldString:[self.replyDataSource objectAtIndex:i] andNewString:newString];
         
-        height =  height + [_ilcoreText getSuggestedHeight] + 10;
+        height =  height + [_ilcoreText getTextHeight] + 5;
         
     }
     
     [self calculateShowImageHeight];
     
     return height;
-
+    
 }
 //图片高度
 - (void)calculateShowImageHeight{
-
+    
     if (self.showImageArray.count == 0) {
         self.showImageArray = 0;
     }else{
         self.showImageHeight = (ShowImage_H + 10) * ((self.showImageArray.count - 1)/3 + 1);
     }
-
+    
 }
 
 - (void)matchString:(NSString *)dataSourceString fromView:(BOOL) isYMOrNot{
-   
+    
     if (isYMOrNot == YES) {
-    
-            NSMutableArray *totalArr = [NSMutableArray arrayWithCapacity:0];
-    
-            //**********号码******
-    
-            NSMutableArray *mobileLink = [ILRegularExpressionManager matchMobileLink:dataSourceString];
-            for (int i = 0; i < mobileLink.count; i ++) {
         
-                [totalArr addObject:[mobileLink objectAtIndex:i]];
-            }
-    
+        NSMutableArray *totalArr = [NSMutableArray arrayWithCapacity:0];
+        
+        //**********号码******
+        
+        NSMutableArray *mobileLink = [ILRegularExpressionManager matchMobileLink:dataSourceString];
+        for (int i = 0; i < mobileLink.count; i ++) {
+            
+            [totalArr addObject:[mobileLink objectAtIndex:i]];
+        }
+        
         //*************************
-    
-    
+        
+        
         //***********匹配网址*********
-    
+        
         NSMutableArray *webLink = [ILRegularExpressionManager matchWebLink:dataSourceString];
         for (int i = 0; i < webLink.count; i ++) {
             
             [totalArr addObject:[webLink objectAtIndex:i]];
         }
-    
+        
         //******自行添加**********
         
-        NSString *string = [dataSourceString substringWithRange:NSMakeRange(0, 3)];
-        [totalArr addObject:[NSDictionary dictionaryWithObject:string forKey:NSStringFromRange(NSMakeRange(0, 3))]];
+        if (_defineAttrData.count != 0) {
+            NSArray *tArr = [_defineAttrData objectAtIndex:tempInt];
+            for (int i = 0; i < [tArr count]; i ++) {
+                NSString *string = [dataSourceString substringWithRange:NSRangeFromString([tArr objectAtIndex:i])];
+                [totalArr addObject:[NSDictionary dictionaryWithObject:string forKey:NSStringFromRange(NSRangeFromString([tArr objectAtIndex:i]))]];
+            }
+            
+        }
+       
         
         //***********************
         [self.attributedData addObject:totalArr];
-    
-
+        
+        
     }else{
-    
+        
         //**********号码******
         
         NSMutableArray *mobileLink = [ILRegularExpressionManager matchMobileLink:dataSourceString];
@@ -140,18 +150,18 @@
         }
         
         //******自行添加**********
-//        NSString *string = [dataSourceString substringWithRange:NSMakeRange(0, 3)];
-//        [self.attributedDataWF addObject:[NSDictionary dictionaryWithObject:string forKey:NSStringFromRange(NSMakeRange(0, 3))]];
+        //        NSString *string = [dataSourceString substringWithRange:NSMakeRange(0, 3)];
+        //        [self.attributedDataWF addObject:[NSDictionary dictionaryWithObject:string forKey:NSStringFromRange(NSMakeRange(0, 3))]];
         //**********************
     }
     
     
 }
 
-//WFTextView高度
+//说说高度
 - (float) calculateShuoshuoHeightWithWidth:(float)sizeWidth withUnFoldState:(BOOL)isUnfold{
     
-    isYM = NO;
+    isReplyView = NO;
     
     NSString *matchString =  _showShuoShuo;
     
@@ -161,8 +171,8 @@
                                                        withString:PlaceHolder];
     //存新的
     self.completionShuoshuo = newString;
-
-    [self matchString:newString fromView:isYM];
+    
+    [self matchString:newString fromView:isReplyView];
     
     WFTextView *_wfcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(20,10, sizeWidth - 2*20, 0)];
     
@@ -184,11 +194,11 @@
         
         _wfcoreText.isFold = NO;
         
-    
+        
     }
     return [_wfcoreText getTextHeight];
-
-
+    
+    
 }
 
 

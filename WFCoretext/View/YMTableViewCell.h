@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "YMTextData.h"
-#import "YMTextView.h"
 #import "WFTextView.h"
 #import "YMButton.h"
 
@@ -20,7 +19,7 @@
 
 @end
 
-@interface YMTableViewCell : UITableViewCell<ILCoretextDelegate,WFCoretextDelegate>
+@interface YMTableViewCell : UITableViewCell<WFCoretextDelegate>
 
 @property (nonatomic,strong) NSMutableArray * imageArray;
 @property (nonatomic,strong) NSMutableArray * ymTextArray;

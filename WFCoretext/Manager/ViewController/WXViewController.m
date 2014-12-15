@@ -15,6 +15,8 @@
 
 #define dataCount 10
 #define kLocationToBottom 20
+#define kAdmin @"小虎-tiger"
+
 
 @interface WXViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate>
 {
@@ -89,11 +91,16 @@
          for (int i = 0 ; i < dataCount; i ++) {
              
          //模拟数据 随机3组回复 以及图片
-             NSMutableArray * array=[[NSMutableArray alloc]init];
-             
+             NSMutableArray * array = [[NSMutableArray alloc]init];
+             NSMutableArray * userDefineAttriArray = [[NSMutableArray alloc]init];
              int randomReplyCount = arc4random() % 6 + 1;
              for (int k = 0; k < randomReplyCount; k ++) {
                  [array addObject:[_contentDataSource objectAtIndex:arc4random() % 6]];
+                 NSMutableArray *tempDefineArr = [[NSMutableArray alloc]init];
+                 NSString *range = NSStringFromRange(NSMakeRange(0, 2));
+                 
+                 [tempDefineArr addObject:range];
+                 [userDefineAttriArray addObject:tempDefineArr];
              }
              
              
@@ -112,6 +119,7 @@
              ymData.showImageArray = imageArray;
              ymData.foldOrNot = YES;
              ymData.showShuoShuo = aboveString;
+             ymData.defineAttrData = userDefineAttriArray;
              ymData.replyDataSource = array;
              [ymDataArray addObject:ymData];
              
@@ -337,7 +345,7 @@
 #pragma mark - 评论说说回调
 - (void)YMReplyInputWithReply:(NSString *)replyText appendTag:(NSInteger)inputTag{
     
-    NSString *newString = [NSString stringWithFormat:@"小虎:%@",replyText];//此处可扩展。已写死，包括内部逻辑也写死 在YMTextData里 自行添加部分
+    NSString *newString = [NSString stringWithFormat:@"%@:%@",kAdmin,replyText];//此处可扩展。已写死，包括内部逻辑也写死 在YMTextData里 自行添加部分
     
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
     [ymData.replyDataSource addObject:newString];
@@ -346,7 +354,10 @@
     [ymData.completionReplySource removeAllObjects];
     [ymData.attributedData removeAllObjects];
     
-   
+    NSString *rangeStr = NSStringFromRange(NSMakeRange(0, kAdmin.length));
+    NSMutableArray *rangeArr = [[NSMutableArray alloc] init];
+    [rangeArr addObject:rangeStr];
+    [ymData.defineAttrData addObject:rangeArr];
     ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
     [_tableDataSource replaceObjectAtIndex:inputTag withObject:ymData];
     

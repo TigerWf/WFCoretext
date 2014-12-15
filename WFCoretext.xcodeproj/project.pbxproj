@@ -22,7 +22,6 @@
 		D27CF91C1A00B660006B2D2B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27CF9181A00B660006B2D2B /* ViewController.m */; };
 		D27CF91D1A00B660006B2D2B /* WXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27CF91A1A00B660006B2D2B /* WXViewController.m */; };
 		D27CF9231A00B6A2006B2D2B /* YMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D27CF9201A00B6A2006B2D2B /* YMTableViewCell.m */; };
-		D27CF9241A00B6A2006B2D2B /* YMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D27CF9221A00B6A2006B2D2B /* YMTextView.m */; };
 		D292E15C1A035AE6001E28BA /* WFTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D292E15B1A035AE6001E28BA /* WFTextView.m */; };
 		D2BCD63D19F9F15600869AD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2BCD63C19F9F15600869AD5 /* main.m */; };
 		D2BCD64019F9F15600869AD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2BCD63F19F9F15600869AD5 /* AppDelegate.m */; };
@@ -76,8 +75,6 @@
 		D27CF91A1A00B660006B2D2B /* WXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXViewController.m; sourceTree = "<group>"; };
 		D27CF91F1A00B6A2006B2D2B /* YMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMTableViewCell.h; sourceTree = "<group>"; };
 		D27CF9201A00B6A2006B2D2B /* YMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTableViewCell.m; sourceTree = "<group>"; };
-		D27CF9211A00B6A2006B2D2B /* YMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMTextView.h; sourceTree = "<group>"; };
-		D27CF9221A00B6A2006B2D2B /* YMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTextView.m; sourceTree = "<group>"; };
 		D292E15A1A035AE6001E28BA /* WFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFTextView.h; sourceTree = "<group>"; };
 		D292E15B1A035AE6001E28BA /* WFTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFTextView.m; sourceTree = "<group>"; };
 		D2BCD63719F9F15600869AD5 /* WFCoretext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WFCoretext.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,8 +167,6 @@
 				D2CD95C41A08C37200EFEE45 /* YMReplyInputView.m */,
 				D27CF91F1A00B6A2006B2D2B /* YMTableViewCell.h */,
 				D27CF9201A00B6A2006B2D2B /* YMTableViewCell.m */,
-				D27CF9211A00B6A2006B2D2B /* YMTextView.h */,
-				D27CF9221A00B6A2006B2D2B /* YMTextView.m */,
 				D292E15A1A035AE6001E28BA /* WFTextView.h */,
 				D292E15B1A035AE6001E28BA /* WFTextView.m */,
 				D2669DF11A076A7200EF7532 /* YMTapGestureRecongnizer.h */,
@@ -373,7 +368,6 @@
 				D27CF91D1A00B660006B2D2B /* WXViewController.m in Sources */,
 				D27CF9131A00B60F006B2D2B /* YMTextData.m in Sources */,
 				D27CF9111A00B60F006B2D2B /* NSArray+NSArray_ILExtension.m in Sources */,
-				D27CF9241A00B6A2006B2D2B /* YMTextView.m in Sources */,
 				D2BCD63D19F9F15600869AD5 /* main.m in Sources */,
 				D2669DF61A076ED000EF7532 /* YMShowImageView.m in Sources */,
 			);

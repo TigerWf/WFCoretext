@@ -20,6 +20,8 @@
 @property (nonatomic,strong) NSMutableArray *attributedDataWF;//WFTextView附带的点击区域数组
 @property (nonatomic,strong) NSMutableArray *showImageArray;//图片数组
 @property (nonatomic,assign) float           showImageHeight;//展示图片的高度
+@property (nonatomic,strong) NSMutableArray *defineAttrData;//自行添加 元素为每条回复中的自行添加的range组成的数组 如：第一条回复有（0，2）和（5，2） 第二条为（0，2）。。。。
+
 
 @property (nonatomic,assign) BOOL            foldOrNot;//是否折叠
 @property (nonatomic,strong) NSString       *showShuoShuo;//说说部分
