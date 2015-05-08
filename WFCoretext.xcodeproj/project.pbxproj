@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D248D3EE1AF075DE004E8F3D /* WFMessageBody.m in Sources */ = {isa = PBXBuildFile; fileRef = D248D3ED1AF075DE004E8F3D /* WFMessageBody.m */; };
 		D2669DE71A075A6800EF7532 /* personal_showBac@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2669DE61A075A6800EF7532 /* personal_showBac@2x.png */; };
 		D2669DEC1A075EAD00EF7532 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = D2669DE91A075EAD00EF7532 /* 1.png */; };
 		D2669DED1A075EAD00EF7532 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = D2669DEA1A075EAD00EF7532 /* 2.png */; };
@@ -22,6 +23,8 @@
 		D27CF91C1A00B660006B2D2B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27CF9181A00B660006B2D2B /* ViewController.m */; };
 		D27CF91D1A00B660006B2D2B /* WXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D27CF91A1A00B660006B2D2B /* WXViewController.m */; };
 		D27CF9231A00B6A2006B2D2B /* YMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D27CF9201A00B6A2006B2D2B /* YMTableViewCell.m */; };
+		D28ACE911AEF8B8E00CC7751 /* WFHudView.m in Sources */ = {isa = PBXBuildFile; fileRef = D28ACE901AEF8B8E00CC7751 /* WFHudView.m */; };
+		D28ACE941AEF905B00CC7751 /* WFReplyBody.m in Sources */ = {isa = PBXBuildFile; fileRef = D28ACE931AEF905B00CC7751 /* WFReplyBody.m */; };
 		D292E15C1A035AE6001E28BA /* WFTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D292E15B1A035AE6001E28BA /* WFTextView.m */; };
 		D2BCD63D19F9F15600869AD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2BCD63C19F9F15600869AD5 /* main.m */; };
 		D2BCD64019F9F15600869AD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2BCD63F19F9F15600869AD5 /* AppDelegate.m */; };
@@ -49,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D248D3EC1AF075DE004E8F3D /* WFMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFMessageBody.h; sourceTree = "<group>"; };
+		D248D3ED1AF075DE004E8F3D /* WFMessageBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFMessageBody.m; sourceTree = "<group>"; };
 		D2669DE61A075A6800EF7532 /* personal_showBac@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personal_showBac@2x.png"; sourceTree = "<group>"; };
 		D2669DE91A075EAD00EF7532 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		D2669DEA1A075EAD00EF7532 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -75,6 +80,10 @@
 		D27CF91A1A00B660006B2D2B /* WXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXViewController.m; sourceTree = "<group>"; };
 		D27CF91F1A00B6A2006B2D2B /* YMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMTableViewCell.h; sourceTree = "<group>"; };
 		D27CF9201A00B6A2006B2D2B /* YMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMTableViewCell.m; sourceTree = "<group>"; };
+		D28ACE8F1AEF8B8E00CC7751 /* WFHudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFHudView.h; sourceTree = "<group>"; };
+		D28ACE901AEF8B8E00CC7751 /* WFHudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFHudView.m; sourceTree = "<group>"; };
+		D28ACE921AEF905B00CC7751 /* WFReplyBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFReplyBody.h; sourceTree = "<group>"; };
+		D28ACE931AEF905B00CC7751 /* WFReplyBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFReplyBody.m; sourceTree = "<group>"; };
 		D292E15A1A035AE6001E28BA /* WFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFTextView.h; sourceTree = "<group>"; };
 		D292E15B1A035AE6001E28BA /* WFTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFTextView.m; sourceTree = "<group>"; };
 		D2BCD63719F9F15600869AD5 /* WFCoretext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WFCoretext.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +151,10 @@
 				D27CF90D1A00B60F006B2D2B /* NSString+NSString_ILExtension.m */,
 				D27CF90E1A00B60F006B2D2B /* YMTextData.h */,
 				D27CF90F1A00B60F006B2D2B /* YMTextData.m */,
+				D28ACE921AEF905B00CC7751 /* WFReplyBody.h */,
+				D28ACE931AEF905B00CC7751 /* WFReplyBody.m */,
+				D248D3EC1AF075DE004E8F3D /* WFMessageBody.h */,
+				D248D3ED1AF075DE004E8F3D /* WFMessageBody.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -170,6 +183,8 @@
 				D292E15A1A035AE6001E28BA /* WFTextView.h */,
 				D292E15B1A035AE6001E28BA /* WFTextView.m */,
 				D2669DF11A076A7200EF7532 /* YMTapGestureRecongnizer.h */,
+				D28ACE8F1AEF8B8E00CC7751 /* WFHudView.h */,
+				D28ACE901AEF8B8E00CC7751 /* WFHudView.m */,
 				D2669DF21A076A7200EF7532 /* YMTapGestureRecongnizer.m */,
 				D2669DF41A076ED000EF7532 /* YMShowImageView.h */,
 				D2669DF51A076ED000EF7532 /* YMShowImageView.m */,
@@ -363,6 +378,7 @@
 				D27CF91B1A00B660006B2D2B /* DetailViewController.m in Sources */,
 				D27CF9231A00B6A2006B2D2B /* YMTableViewCell.m in Sources */,
 				D27CF91C1A00B660006B2D2B /* ViewController.m in Sources */,
+				D28ACE941AEF905B00CC7751 /* WFReplyBody.m in Sources */,
 				D2CD95C21A08BF3700EFEE45 /* YMButton.m in Sources */,
 				D2BCD64019F9F15600869AD5 /* AppDelegate.m in Sources */,
 				D27CF91D1A00B660006B2D2B /* WXViewController.m in Sources */,
@@ -370,6 +386,8 @@
 				D27CF9111A00B60F006B2D2B /* NSArray+NSArray_ILExtension.m in Sources */,
 				D2BCD63D19F9F15600869AD5 /* main.m in Sources */,
 				D2669DF61A076ED000EF7532 /* YMShowImageView.m in Sources */,
+				D248D3EE1AF075DE004E8F3D /* WFMessageBody.m in Sources */,
+				D28ACE911AEF8B8E00CC7751 /* WFHudView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

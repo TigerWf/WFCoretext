@@ -7,7 +7,7 @@
 // 2 3 2 2 2 3 1 3 2 1
 
 #import "YMTableViewCell.h"
-
+#import "WFReplyBody.h"
 #import "ContantHead.h"
 #import "YMTapGestureRecongnizer.h"
 
@@ -120,7 +120,7 @@
     
     WFTextView *textView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X, 15 + TableHeader, screenWidth - 2 * offSet_X, 0)];
     textView.delegate = self;
-    textView.attributedData = ymData.attributedDataWF;
+    textView.attributedData = ymData.attributedDataShuoshuo;
     textView.isFold = ymData.foldOrNot;
     textView.isDraw = YES;
     [textView setOldString:ymData.showShuoShuo andNewString:ymData.completionShuoshuo];
@@ -215,10 +215,22 @@
         
         _ilcoreText.delegate = self;
         
-        _ilcoreText.attributedData = [ymData.attributedData objectAtIndex:i];
+        _ilcoreText.attributedData = [ymData.attributedDataReply objectAtIndex:i];
         
         
-        [_ilcoreText setOldString:[ymData.replyDataSource objectAtIndex:i] andNewString:[ymData.completionReplySource objectAtIndex:i]];
+        WFReplyBody *body = (WFReplyBody *)[ymData.replyDataSource objectAtIndex:i];
+        
+        NSString *matchString;
+        
+        if ([body.repliedUser isEqualToString:@""]) {
+            matchString = [NSString stringWithFormat:@"%@:%@",body.replyUser,body.replyInfo];
+            
+        }else{
+            matchString = [NSString stringWithFormat:@"%@回复%@:%@",body.replyUser,body.repliedUser,body.replyInfo];
+            
+        }
+        
+        [_ilcoreText setOldString:matchString andNewString:[ymData.completionReplySource objectAtIndex:i]];
         
         _ilcoreText.frame = CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2, [_ilcoreText getTextHeight]);
         [self.contentView addSubview:_ilcoreText];
@@ -268,18 +280,17 @@
 
 - (void)clickWFCoretext:(NSString *)clickString{
     
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:clickString message:nil delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-        [alert show];
-        
-        
-    });
+    if ([clickString isEqualToString:@""]) {
+       //reply
+        NSLog(@"reply");
+    }else{
+       //do nothing
+    
+    }
     
 }
 
-#pragma mark - 点击时间
+#pragma mark - 点击action
 - (void)tapImageView:(YMTapGestureRecongnizer *)tapGes{
     
     [_delegate showImageViewWithImageViews:tapGes.appendArray byClickWhich:tapGes.view.tag];

@@ -10,7 +10,7 @@
 #import "ContantHead.h"
 #import "ILRegularExpressionManager.h"
 #import "NSString+NSString_ILExtension.h"
-
+#import "WFReplyBody.h"
 #import "WFTextView.h"
 
 @implementation YMTextData{
@@ -27,29 +27,77 @@
     if (self) {
         
         self.completionReplySource = [[NSMutableArray alloc] init];
-        self.attributedData = [[NSMutableArray alloc] init];
-        self.attributedDataWF = [[NSMutableArray alloc] init];
-        self.showImageArray = [[NSMutableArray alloc] init];
+        self.attributedDataReply = [[NSMutableArray alloc] init];
+        self.attributedDataShuoshuo = [[NSMutableArray alloc] init];
+        
         _foldOrNot = YES;
         _islessLimit = NO;
-    }
+        
+           }
     return self;
+}
+
+- (void)setMessageBody:(WFMessageBody *)messageBody{
+
+    _messageBody = messageBody;
+    self.showImageArray = messageBody.posterPostImage;
+    self.foldOrNot = YES;
+    self.showShuoShuo = messageBody.posterContent;
+    self.defineAttrData = [self findAttrWith:messageBody.posterReplies];
+    self.replyDataSource = messageBody.posterReplies;
+
+
+}
+
+
+- (NSMutableArray *)findAttrWith:(NSMutableArray *)replies{
+    
+    NSMutableArray *feedBackArray = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i < replies.count; i++) {
+        WFReplyBody *replyBody = (WFReplyBody *)[replies objectAtIndex:i];
+        NSMutableArray *tempArr = [[NSMutableArray alloc] init];
+        if ([replyBody.repliedUser isEqualToString:@""]) {
+            
+            NSString *range = NSStringFromRange(NSMakeRange(0, replyBody.replyUser.length));
+            [tempArr addObject:range];
+            
+        }else{
+            NSString *range1 = NSStringFromRange(NSMakeRange(0, replyBody.replyUser.length));
+            NSString *range2 = NSStringFromRange(NSMakeRange(replyBody.replyUser.length + 2, replyBody.repliedUser.length));
+            [tempArr addObject:range1];
+            [tempArr addObject:range2];
+        }
+        [feedBackArray addObject:tempArr];
+    }
+    return feedBackArray;
+    
 }
 
 //计算replyview高度
 - (float) calculateReplyHeightWithWidth:(float)sizeWidth{
     
-    
     isReplyView = YES;
     float height = .0f;
-    //NSLog(@" === %@",self.replyDataSource);
     
     for (int i = 0; i < self.replyDataSource.count; i ++ ) {
         
+        
+        
         tempInt = i;
         
-        NSString *matchString = [self.replyDataSource objectAtIndex:i];
         
+        
+        WFReplyBody *body = (WFReplyBody *)[self.replyDataSource objectAtIndex:i];
+        
+        NSString *matchString;
+        
+        if ([body.repliedUser isEqualToString:@""]) {
+            matchString = [NSString stringWithFormat:@"%@:%@",body.replyUser,body.replyInfo];
+            
+        }else{
+            matchString = [NSString stringWithFormat:@"%@回复%@:%@",body.replyUser,body.repliedUser,body.replyInfo];
+          
+        }
         NSArray *itemIndexs = [ILRegularExpressionManager itemIndexesWithPattern:EmotionItemPattern inString:matchString];
         
         NSString *newString = [matchString replaceCharactersAtIndexes:itemIndexs
@@ -57,15 +105,13 @@
         //存新的
         [self.completionReplySource addObject:newString];
         
-        
-        
         [self matchString:newString fromView:isReplyView];
         
         WFTextView *_ilcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X,10, sizeWidth - offSet_X * 2, 0)];
         
         _ilcoreText.isDraw = NO;
         
-        [_ilcoreText setOldString:[self.replyDataSource objectAtIndex:i] andNewString:newString];
+        [_ilcoreText setOldString:matchString andNewString:newString];
         
         height =  height + [_ilcoreText getTextHeight] + 5;
         
@@ -87,9 +133,9 @@
     
 }
 
-- (void)matchString:(NSString *)dataSourceString fromView:(BOOL) isYMOrNot{
+- (void)matchString:(NSString *)dataSourceString fromView:(BOOL) isReplyV{
     
-    if (isYMOrNot == YES) {
+    if (isReplyV == YES) {
         
         NSMutableArray *totalArr = [NSMutableArray arrayWithCapacity:0];
         
@@ -125,7 +171,7 @@
        
         
         //***********************
-        [self.attributedData addObject:totalArr];
+        [self.attributedDataReply addObject:totalArr];
         
         
     }else{
@@ -135,7 +181,7 @@
         NSMutableArray *mobileLink = [ILRegularExpressionManager matchMobileLink:dataSourceString];
         for (int i = 0; i < mobileLink.count; i ++) {
             
-            [self.attributedDataWF addObject:[mobileLink objectAtIndex:i]];
+            [self.attributedDataShuoshuo addObject:[mobileLink objectAtIndex:i]];
         }
         
         //*************************
@@ -146,13 +192,9 @@
         NSMutableArray *webLink = [ILRegularExpressionManager matchWebLink:dataSourceString];
         for (int i = 0; i < webLink.count; i ++) {
             
-            [self.attributedDataWF addObject:[webLink objectAtIndex:i]];
+            [self.attributedDataShuoshuo addObject:[webLink objectAtIndex:i]];
         }
         
-        //******自行添加**********
-        //        NSString *string = [dataSourceString substringWithRange:NSMakeRange(0, 3)];
-        //        [self.attributedDataWF addObject:[NSDictionary dictionaryWithObject:string forKey:NSStringFromRange(NSMakeRange(0, 3))]];
-        //**********************
     }
     
     
@@ -167,6 +209,7 @@
     
     NSArray *itemIndexs = [ILRegularExpressionManager itemIndexesWithPattern:EmotionItemPattern inString:matchString];
     
+    //用PlaceHolder 替换掉[em:02:]这些
     NSString *newString = [matchString replaceCharactersAtIndexes:itemIndexs
                                                        withString:PlaceHolder];
     //存新的
@@ -187,17 +230,12 @@
     }
     
     if (!isUnfold) {
-        
         _wfcoreText.isFold = YES;
         
     }else{
-        
         _wfcoreText.isFold = NO;
-        
-        
     }
     return [_wfcoreText getTextHeight];
-    
     
 }
 

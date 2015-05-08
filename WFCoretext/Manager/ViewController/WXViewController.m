@@ -12,6 +12,8 @@
 #import "YMShowImageView.h"
 #import "YMTextData.h"
 #import "YMReplyInputView.h"
+#import "WFReplyBody.h"
+#import "WFMessageBody.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -30,7 +32,7 @@
     
     UITableView *mainTable;
     
-    UIButton *replyBtn;
+    YMButton *replyBtn;
     
     YMReplyInputView *replyView ;
     
@@ -39,6 +41,94 @@
 @end
 
 @implementation WXViewController
+
+
+#pragma mark - 数据源
+- (void)configData{
+    
+    _tableDataSource = [[NSMutableArray alloc] init];
+    _contentDataSource = [[NSMutableArray alloc] init];
+    
+    WFReplyBody *body1 = [[WFReplyBody alloc] init];
+    body1.replyUser = @"山姆";
+    body1.repliedUser = @"红领巾";
+    body1.replyInfo = kContentText1;
+    
+    
+    WFReplyBody *body2 = [[WFReplyBody alloc] init];
+    body2.replyUser = @"迪恩";
+    body2.repliedUser = @"";
+    body2.replyInfo = kContentText2;
+   
+    
+    WFReplyBody *body3 = [[WFReplyBody alloc] init];
+    body3.replyUser = @"山姆";
+    body3.repliedUser = @"";
+    body3.replyInfo = kContentText3;
+   
+    
+    WFReplyBody *body4 = [[WFReplyBody alloc] init];
+    body4.replyUser = @"雷锋";
+    body4.repliedUser = @"简森·阿克斯";
+    body4.replyInfo = kContentText4;
+    
+    
+    WFReplyBody *body5 = [[WFReplyBody alloc] init];
+    body5.replyUser = kAdmin;
+    body5.repliedUser = @"";
+    body5.replyInfo = kContentText5;
+    
+    
+    WFReplyBody *body6 = [[WFReplyBody alloc] init];
+    body6.replyUser = @"红领巾";
+    body6.repliedUser = @"";
+    body6.replyInfo = kContentText6;
+    
+    
+    WFMessageBody *messBody1 = [[WFMessageBody alloc] init];
+    messBody1.posterContent = kShuoshuoText1;
+    messBody1.posterPostImage = @[@"1.png",@"2.png",@"3.png"];
+    messBody1.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4, nil];
+    
+    
+    WFMessageBody *messBody2 = [[WFMessageBody alloc] init];
+    messBody2.posterContent = kShuoshuoText2;
+    messBody2.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"3.png",@"2.png",@"1.png",@"2.png",@"1.png",@"3.png"];
+    messBody2.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body3,body6, nil];
+    
+    
+    WFMessageBody *messBody3 = [[WFMessageBody alloc] init];
+    messBody3.posterContent = kShuoshuoText3;
+    messBody3.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"2.png",@"1.png",@"3.png"];
+    messBody3.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body6,body5,body4, nil];
+    
+    
+    WFMessageBody *messBody4 = [[WFMessageBody alloc] init];
+    messBody4.posterContent = kShuoshuoText4;
+    messBody4.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"1.png",@"3.png"];
+    messBody4.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body5, nil];
+    
+    
+    WFMessageBody *messBody5 = [[WFMessageBody alloc] init];
+    messBody5.posterContent = kShuoshuoText5;
+    messBody5.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"3.png"];
+    messBody5.posterReplies = [NSMutableArray arrayWithObjects:body2,body4,body5, nil];
+    
+    WFMessageBody *messBody6 = [[WFMessageBody alloc] init];
+    messBody6.posterContent = kShuoshuoText5;
+    messBody6.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"3.png",@"2.png"];
+    messBody6.posterReplies = [NSMutableArray arrayWithObjects:body2,body4,body5,body4,body6, nil];
+
+    
+    
+    [_contentDataSource addObject:messBody1];
+    [_contentDataSource addObject:messBody2];
+    [_contentDataSource addObject:messBody3];
+    [_contentDataSource addObject:messBody4];
+    [_contentDataSource addObject:messBody5];
+    [_contentDataSource addObject:messBody6];
+ 
+}
 
 - (void)viewDidLoad {
     
@@ -52,30 +142,10 @@
     [self.view addSubview:backBtn];
     [backBtn addTarget:self action:@selector(backToPre) forControlEvents:UIControlEventTouchUpInside];
    
-    //
-    _tableDataSource = [[NSMutableArray alloc] init];
-    
-    _contentDataSource = [[NSMutableArray alloc] init];//回复数据来源
-    [_contentDataSource addObject:kContentText1];
-    [_contentDataSource addObject:kContentText2];
-    [_contentDataSource addObject:kContentText3];
-    [_contentDataSource addObject:kContentText4];
-    [_contentDataSource addObject:kContentText5];
-    [_contentDataSource addObject:kContentText6];
-    
-    _shuoshuoDatasSource = [[NSMutableArray alloc] init];//说说数据来源
-    
-    [_shuoshuoDatasSource addObject:kShuoshuoText1];
-    [_shuoshuoDatasSource addObject:kShuoshuoText2];
-    [_shuoshuoDatasSource addObject:kShuoshuoText3];
-    [_shuoshuoDatasSource addObject:kShuoshuoText4];
-    [_shuoshuoDatasSource addObject:kShuoshuoText5];
-    [_shuoshuoDatasSource addObject:kShuoshuoText6];
-    
-    
+    [self configData];
     
     [self initTableview];
-    [self configImageData];
+    
     [self loadTextData];
 }
 
@@ -84,54 +154,24 @@
 
      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
          
-       NSMutableArray * ymDataArray=[[NSMutableArray alloc]init];
+       NSMutableArray * ymDataArray =[[NSMutableArray alloc]init];
        
-      
-         
-         for (int i = 0 ; i < dataCount; i ++) {
+        for (int i = 0 ; i < _contentDataSource.count; i ++) {
              
-         //模拟数据 随机3组回复 以及图片
-             NSMutableArray * array = [[NSMutableArray alloc]init];
-             NSMutableArray * userDefineAttriArray = [[NSMutableArray alloc]init];
-             int randomReplyCount = arc4random() % 6 + 1;
-             for (int k = 0; k < randomReplyCount; k ++) {
-                 [array addObject:[_contentDataSource objectAtIndex:arc4random() % 6]];
-                 NSMutableArray *tempDefineArr = [[NSMutableArray alloc]init];
-                 NSString *range = NSStringFromRange(NSMakeRange(0, 2));
-                 
-                 [tempDefineArr addObject:range];
-                 [userDefineAttriArray addObject:tempDefineArr];
-             }
-             
-             
-             NSMutableArray * imageArray = [[NSMutableArray alloc] init];
-             int randomImageCount = arc4random() % 9 + 1;
-             
-             for (int j = 0; j < randomImageCount; j ++) {
-                 
-                [imageArray addObject:[_imageDataSource objectAtIndex:arc4random() % 9]];
-             }
+             WFMessageBody *messBody = [_contentDataSource objectAtIndex:i];
             
-        //图片上面说说部分
-             NSString *aboveString = [_shuoshuoDatasSource objectAtIndex:arc4random() % 6];
-             
-             YMTextData *ymData = [[YMTextData alloc] init];
-             ymData.showImageArray = imageArray;
-             ymData.foldOrNot = YES;
-             ymData.showShuoShuo = aboveString;
-             ymData.defineAttrData = userDefineAttriArray;
-             ymData.replyDataSource = array;
+             YMTextData *ymData = [[YMTextData alloc] init ];
+             ymData.messageBody = messBody;
+            
              [ymDataArray addObject:ymData];
              
          }
          [self calculateHeight:ymDataArray];
          
-        
-         
-     });
-
-
+    });
 }
+
+
 
 #pragma mark - 计算高度
 - (void)calculateHeight:(NSMutableArray *)dataArray{
@@ -146,6 +186,7 @@
         ymData.unFoldShuoHeight = [ymData calculateShuoshuoHeightWithWidth:self.view.frame.size.width withUnFoldState:YES];//展开
         
         ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
+        
         [_tableDataSource addObject:ymData];
         
     }
@@ -162,20 +203,7 @@
    
 }
 
-#pragma mark - 图片数据源
-- (void)configImageData{
-   
-    _imageDataSource = [NSMutableArray arrayWithCapacity:0];
-    [_imageDataSource addObject:@"1.png"];
-    [_imageDataSource addObject:@"2.png"];
-    [_imageDataSource addObject:@"3.png"];
-    [_imageDataSource addObject:@"1.png"];
-    [_imageDataSource addObject:@"2.png"];
-    [_imageDataSource addObject:@"3.png"];
-    [_imageDataSource addObject:@"1.png"];
-    [_imageDataSource addObject:@"2.png"];
-    [_imageDataSource addObject:@"3.png"];
-}
+
 
 
 - (void)backToPre{
@@ -213,7 +241,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-   
     static NSString *CellIdentifier = @"ILTableViewCell";
     
     YMTableViewCell *cell = (YMTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -221,7 +248,7 @@
         cell = [[YMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.stamp = indexPath.row;
-    cell.replyBtn.tag = indexPath.row;
+   // cell.replyBtn.tag = indexPath.row;
     cell.replyBtn.appendIndexPath = indexPath;
     [cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
@@ -255,13 +282,13 @@
        
     }else{
     
-        replyBtn = [UIButton buttonWithType:0];
+        replyBtn = [YMButton buttonWithType:0];
         replyBtn.layer.cornerRadius = 5;
         replyBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:37/255.0 blue:38/255.0 alpha:1.0];
         replyBtn.frame = CGRectMake(sender.frame.origin.x , origin_Y - 10 , 0, 38);
         [replyBtn setTitleColor:[UIColor whiteColor] forState:0];
         replyBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-        replyBtn.tag = sender.tag;
+        replyBtn.tag = sender.appendIndexPath.row;
         [mainTable addSubview:replyBtn];
         [replyBtn addTarget:self action:@selector(replyMessage:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -279,7 +306,7 @@
 }
 
 #pragma mark - 真の评论
-- (void)replyMessage:(UIButton *)sender{
+- (void)replyMessage:(YMButton *)sender{
     //NSLog(@"TAG === %d",sender.tag);
     
     if (replyBtn){
@@ -345,19 +372,26 @@
 #pragma mark - 评论说说回调
 - (void)YMReplyInputWithReply:(NSString *)replyText appendTag:(NSInteger)inputTag{
     
-    NSString *newString = [NSString stringWithFormat:@"%@:%@",kAdmin,replyText];//此处可扩展。已写死，包括内部逻辑也写死 在YMTextData里 自行添加部分
+    NSLog(@"inputTag === %zi",inputTag);
+    WFReplyBody *body = [[WFReplyBody alloc] init];
+    body.replyUser = kAdmin;
+    body.repliedUser = @"";
+    body.replyInfo = replyText;
+    
+   
     
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
-    [ymData.replyDataSource addObject:newString];
+    WFMessageBody *m = ymData.messageBody;
+    [m.posterReplies addObject:body];
+    
+    ymData.messageBody = m;
+    
     
     //清空属性数组。否则会重复添加
     [ymData.completionReplySource removeAllObjects];
-    [ymData.attributedData removeAllObjects];
+    [ymData.attributedDataReply removeAllObjects];
     
-    NSString *rangeStr = NSStringFromRange(NSMakeRange(0, kAdmin.length));
-    NSMutableArray *rangeArr = [[NSMutableArray alloc] init];
-    [rangeArr addObject:rangeStr];
-    [ymData.defineAttrData addObject:rangeArr];
+
     ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
     [_tableDataSource replaceObjectAtIndex:inputTag withObject:ymData];
     

@@ -7,18 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WFMessageBody.h"
 
 @interface YMTextData : NSObject
 
+
+@property (nonatomic,strong) WFMessageBody  *messageBody;
 @property (nonatomic,strong) NSMutableArray *replyDataSource;//回复内容数据源（未处理）
 @property (nonatomic,assign) float           replyHeight;//回复高度
 @property (nonatomic,assign) float           shuoshuoHeight;//折叠说说高度
 @property (nonatomic,assign) float           unFoldShuoHeight;//展开说说高度
 
 @property (nonatomic,strong) NSMutableArray *completionReplySource;//回复内容数据源（处理）
-@property (nonatomic,strong) NSMutableArray *attributedData;//YMTextView附带的点击区域数组
-@property (nonatomic,strong) NSMutableArray *attributedDataWF;//WFTextView附带的点击区域数组
-@property (nonatomic,strong) NSMutableArray *showImageArray;//图片数组
+@property (nonatomic,strong) NSMutableArray *attributedDataReply;//回复部分附带的点击区域数组
+@property (nonatomic,strong) NSMutableArray *attributedDataShuoshuo;//说说部分附带的点击区域数组
+@property (nonatomic,strong) NSArray        *showImageArray;//图片数组
 @property (nonatomic,assign) float           showImageHeight;//展示图片的高度
 @property (nonatomic,strong) NSMutableArray *defineAttrData;//自行添加 元素为每条回复中的自行添加的range组成的数组 如：第一条回复有（0，2）和（5，2） 第二条为（0，2）。。。。
 
@@ -47,5 +50,5 @@
 - (float) calculateShuoshuoHeightWithWidth:(float)sizeWidth withUnFoldState:(BOOL)isUnfold;
 
 
-
+- (id)initWithMessage:(WFMessageBody *)messageBody;
 @end

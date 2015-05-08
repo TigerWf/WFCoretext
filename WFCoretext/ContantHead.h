@@ -9,6 +9,13 @@
 #ifndef WFCoretext_ContantHead_h
 #define WFCoretext_ContantHead_h
 
+typedef NS_ENUM(NSInteger, GestureType) {
+
+    TapGesType = 1,
+    LongGesType,
+
+};
+
 #define TableHeader 50
 #define ShowImage_H 80
 #define PlaceHolder @" "
@@ -26,17 +33,19 @@
 #define kSelf_SelectedColor [UIColor colorWithWhite:0 alpha:0.4] //点击背景  颜色
 #define kUserName_SelectedColor [UIColor colorWithWhite:0 alpha:0.25]//点击姓名颜色
 
-#define kContentText1 @"山姆:思想不会流血，不会感到痛苦，思想不会死去"
+#define DELAYEXECUTE(delayTime,func) (dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{func;}))
 
-#define kContentText2 @"迪恩:这张面具之下，不是肉体，而是一种思想但思想是不怕子弹的"
+#define kContentText1 @"思想不会流血，不会感到痛苦，思想不会死去"
 
-#define kContentText3 @"迪恩:Most people are so ungrateful to be alive. But not you. Not anymore. "
+#define kContentText2 @"这张面具之下，不是肉体，而是一种思想但思想是不怕子弹的"
 
-#define kContentText4 @"迪恩:活着本来没有什么意义，但只要活着就会发现很多有趣的13688919929事，就像你发现了花，我又发现你一样[em:03:]。"
+#define kContentText3 @"Most people are so ungrateful to be alive. But not you. Not anymore. "
 
-#define kContentText5 @"先知:地狱的房间已满，于是，[em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:]死亡爬上了人间"
+#define kContentText4 @"活着本来没有什么意义，但只要活着就会发现很多有趣的13688919929事，就像你发现了花，我又发现你一样[em:03:]。"
 
-#define kContentText6 @"C叔:如果一个人觉得他自己死的很不值 就会把诅咒留在他生前接触过的地方 只要有人经过这些地方 就会被咒语套中"
+#define kContentText5 @"地狱的房间已满，于是，[em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:]死亡爬上了人间"
+
+#define kContentText6 @"如果一个人觉得他自己死的很不值 就会把诅咒留在他生前接触过的地方 只要有人经过这些地方 就会被咒语套中"
 
 #define kShuoshuoText1 @"驱魔人 “你可知道邪恶深藏于你心深处，但我会始终在你的[em:02:]左右，握着我的手，我会让你看到神迹，抱紧信仰，除此你一无所有！”"
 

@@ -32,7 +32,7 @@
     [backBtn addTarget:self action:@selector(backToPre) forControlEvents:UIControlEventTouchUpInside];
     
     UITextView *instructT = [[UITextView alloc] initWithFrame:CGRectMake(20, 60, 280, 300)];
-    instructT.text = @"1.本体在WXViewController里\n\n2.分别用CTFrame和CTLine去画富文本,WFTextView为CTLine去画，YMTextView为CTFrame去画\n\n3.上面2个类除了画的方法不一样，选择的方法都差不多，根据点击的区域得到CFIndex，然后判断在不在可点击的Range里，然后绘出背景的CGRect区域，并变色\n\n4.在YMTextData的matchString....方法里可以为文本增加自定义点击区域";
+    instructT.text = @"1.本体在WXViewController里\n\n2.用CTLine去画富文本,WFTextView为CTLine去画\n\n3.根据点击的区域得到CFIndex，然后判断在不在可点击的Range里，然后绘出背景的CGRect区域，并变色\n\n";
     instructT.textColor = [UIColor blueColor];
     instructT.font = [UIFont systemFontOfSize:16.0];
     [self.view addSubview:instructT];
