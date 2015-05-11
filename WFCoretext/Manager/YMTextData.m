@@ -91,7 +91,7 @@
     
     [self matchString:newString fromView:typeview];
     
-    WFTextView *_wfcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(20,10, sizeWidth - 2*20, 0)];
+    WFTextView *_wfcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X + 30,10, sizeWidth - 2*offSet_X - 30, 0)];
     
     _wfcoreText.isDraw = NO;
     

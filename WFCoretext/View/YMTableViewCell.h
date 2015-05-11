@@ -29,6 +29,8 @@
 @property (nonatomic,assign) NSInteger stamp;
 @property (nonatomic,strong) YMButton *replyBtn;
 
+@property (nonatomic,strong) UIImageView *favourImage;//点赞的图
+
 /**
  *  用户头像imageview
  */

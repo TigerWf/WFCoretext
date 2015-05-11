@@ -53,6 +53,8 @@
         _userIntroLbl.textColor = [UIColor grayColor];
         [self.contentView addSubview:_userIntroLbl];
         
+        
+        
         _imageArray = [[NSMutableArray alloc] init];
         _ymTextArray = [[NSMutableArray alloc] init];
         _ymShuoshuoArray = [[NSMutableArray alloc] init];
@@ -75,7 +77,9 @@
         [_replyBtn setImage:[UIImage imageNamed:@"fw_r2_c2.png"] forState:0];
         [self.contentView addSubview:_replyBtn];
         
-        
+        _favourImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _favourImage.backgroundColor = [UIColor redColor];
+        [self.contentView addSubview:_favourImage];
     }
     return self;
 }
@@ -211,17 +215,21 @@
     float backView_H = 0;
     
     
-    WFTextView *favourView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X, 0)];
+    
+    WFTextView *favourView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X + 30, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X - 30, 0)];
     favourView.delegate = self;
     favourView.attributedData = ymData.attributedDataFavour;
     favourView.isDraw = YES;
     favourView.canClickAll = NO;
     favourView.textColor = [UIColor redColor];
     [favourView setOldString:ymData.showFavour andNewString:ymData.completionFavour];
-    favourView.frame = CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2, ymData.favourHeight);
+    favourView.frame = CGRectMake(offSet_X + 30,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2 - 30, ymData.favourHeight);
     [self.contentView addSubview:favourView];
     backView_H += ((ymData.favourHeight == 0)?(-kReply_FavourDistance):ymData.favourHeight);
     [_ymFavourArray addObject:favourView];
+
+//点赞图片的位置
+    _favourImage.frame = CGRectMake(offSet_X, favourView.frame.origin.y, (ymData.favourHeight == 0)?0:20,(ymData.favourHeight == 0)?0:20);
     
     
 #pragma mark - ///// //最下方回复部分
