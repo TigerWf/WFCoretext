@@ -46,9 +46,9 @@ typedef NS_ENUM(NSInteger, GestureType) {
 
 #define kContentText4 @"活着本来没有什么意义，但只要活着就会发现很多有趣的13688919929事，就像你发现了花，我又发现你一样[em:03:]。"
 
-#define kContentText5 @"地狱的房间已满，于是，[em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:][em:02:]死亡爬上了人间"
+#define kContentText5 @"地狱的房间已满，于是，[em:02:][em:02:]死亡爬上了人间"
 
-#define kContentText6 @"如果一个人觉得他自己死的很不值 就会把诅咒留在他生前接触过的地方 只要有人经过这些地方 就会被咒语套中"
+#define kContentText6 @"如果一个人觉得他自己死的很不值,就会把诅咒留在他生前接触过的地方[em:02:]只要有人经过这些地方[em:02:]就会被咒语套中"
 
 #define kShuoshuoText1 @"驱魔人 “你可知道邪恶深藏于你心深处，但我会始终在你的[em:02:]左右，握着我的手，我会让你看到神迹，抱紧信仰，除此你一无所有！”"
 
