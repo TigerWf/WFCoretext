@@ -43,6 +43,7 @@
         
         _selectionsViews = [NSMutableArray arrayWithCapacity:0];
         _isFold = YES;
+        _canClickAll = YES;//默认可点击全部
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMyself:)];
         [self addGestureRecognizer:tapGes];
         
@@ -65,6 +66,10 @@
 
 }
 
+- (void)setTextColor:(UIColor *)textColor{
+
+    _textColor = textColor;
+}
 
 - (void)setOldString:(NSString *)oldString andNewString:(NSString *)newString{
 
@@ -117,14 +122,18 @@
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:aString];
     helvetica = CTFontCreateWithName(CFSTR("Helvetica"),FontSize, NULL);
     [attrString addAttribute:(id)kCTFontAttributeName value: (id)CFBridgingRelease(helvetica) range:NSMakeRange(0,[attrString.string length])];
+    
     [attrString addAttribute:(id)kCTForegroundColorAttributeName value:(id)([UIColor blackColor].CGColor) range:NSMakeRange(0,[attrString length])];
     
+    if (_textColor == nil) {
+        _textColor = [UIColor blueColor];
+    }
     
     for (int i = 0; i < _attributedData.count; i ++) {
         
         NSString *str = [[[_attributedData objectAtIndex:i] allKeys] objectAtIndex:0];
         
-        [attrString addAttribute:(id)kCTForegroundColorAttributeName value:(id)([UIColor blueColor].CGColor) range:NSRangeFromString(str)];
+        [attrString addAttribute:(id)kCTForegroundColorAttributeName value:(id)(_textColor.CGColor) range:NSRangeFromString(str)];
         
     }
     
@@ -360,11 +369,23 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
         return;
     }else{
         if (gestureType == TapGesType) {
+            if (_canClickAll == YES) {
+                
+                [self clickAllContext];
+                
+            }else{
             
-            [self clickAllContext];
+            }
+            
         }else{
+            if (_canClickAll == YES) {
+                
+                [self longClickAllContext];
+                
+            }else{
             
-            [self longClickAllContext];
+            }
+            
         }
         
         return;
@@ -450,8 +471,9 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
             CGFloat xEnd = CTLineGetOffsetForStringIndex(line, intersection.location + intersection.length, NULL);
             
             CGFloat ascent, descent;
+            //,leading;
             CTLineGetTypographicBounds(line, &ascent, &descent, NULL);
-            CGRect selectionRect = CGRectMake(xStart, -y, xEnd -  xStart , ascent + descent);//所画选择之后背景的 大小 和起始坐标
+            CGRect selectionRect = CGRectMake(xStart, -y, xEnd -  xStart , ascent + descent + 2);//所画选择之后背景的 大小 和起始坐标 2为微调
             [clickRects addObject:NSStringFromCGRect(selectionRect)];
             
         }
@@ -504,7 +526,7 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
 
 - (void)clickAllContext{
     
-    UIView *myselfSelected = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height + 2)];
+    UIView *myselfSelected = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     myselfSelected.tag = 10102;
     [self insertSubview:myselfSelected belowSubview:self];
     myselfSelected.backgroundColor = kSelf_SelectedColor;
@@ -520,7 +542,7 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
 
 - (void)longClickAllContext{
    
-    UIView *myselfSelected = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height + 2)];
+    UIView *myselfSelected = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     myselfSelected.tag = 10102;
     [self insertSubview:myselfSelected belowSubview:self];
     myselfSelected.backgroundColor = kSelf_SelectedColor;

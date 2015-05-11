@@ -14,6 +14,8 @@
 #import "YMReplyInputView.h"
 #import "WFReplyBody.h"
 #import "WFMessageBody.h"
+#import "WFPopView.h"
+
 
 #define dataCount 10
 #define kLocationToBottom 20
@@ -32,12 +34,16 @@
     
     UITableView *mainTable;
     
-    YMButton *replyBtn;
+    UIView *popView;
     
     YMReplyInputView *replyView ;
     
     
 }
+
+@property (nonatomic,strong) WFPopView *operationView;
+@property (nonatomic,strong) NSIndexPath *selectedIndexPath;
+
 @end
 
 @implementation WXViewController
@@ -89,36 +95,62 @@
     messBody1.posterContent = kShuoshuoText1;
     messBody1.posterPostImage = @[@"1.png",@"2.png",@"3.png"];
     messBody1.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4, nil];
-    
+    messBody1.posterImgstr = @"mao.jpg";
+    messBody1.posterName = @"迪恩·温彻斯特";
+    messBody1.posterIntro = @"这个人很懒，什么都没有留下";
+    messBody1.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",@"希尔瓦娜斯",kAdmin,@"鹿盔", nil];
+    messBody1.isFavour = YES;
     
     WFMessageBody *messBody2 = [[WFMessageBody alloc] init];
-    messBody2.posterContent = kShuoshuoText2;
-    messBody2.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"3.png",@"2.png",@"1.png",@"2.png",@"1.png",@"3.png"];
-    messBody2.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body3,body6, nil];
+    messBody2.posterContent = kShuoshuoText1;
+    messBody2.posterPostImage = @[@"1.png",@"2.png",@"3.png"];
+    messBody2.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4, nil];
+    messBody2.posterImgstr = @"mao.jpg";
+    messBody2.posterName = @"山姆·温彻斯特";
+    messBody2.posterIntro = @"这个人很懒，什么都没有留下";
+    messBody2.posterFavour = [NSMutableArray arrayWithObjects:@"塞纳留斯",@"希尔瓦娜斯",@"鹿盔", nil];
+    messBody2.isFavour = NO;
     
     
     WFMessageBody *messBody3 = [[WFMessageBody alloc] init];
     messBody3.posterContent = kShuoshuoText3;
     messBody3.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"2.png",@"1.png",@"3.png"];
     messBody3.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body6,body5,body4, nil];
-    
+    messBody3.posterImgstr = @"mao.jpg";
+    messBody3.posterName = @"伊利丹怒风";
+    messBody3.posterIntro = @"这个人很懒，什么都没有留下";
+    messBody3.posterFavour = [NSMutableArray arrayWithObjects:@"路人甲",kAdmin,@"希尔瓦娜斯",@"鹿盔",@"黑手", nil];
+    messBody3.isFavour = YES;
     
     WFMessageBody *messBody4 = [[WFMessageBody alloc] init];
     messBody4.posterContent = kShuoshuoText4;
     messBody4.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"1.png",@"3.png"];
     messBody4.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body5, nil];
-    
+    messBody4.posterImgstr = @"mao.jpg";
+    messBody4.posterName = @"基尔加丹";
+    messBody4.posterIntro = @"这个人很懒，什么都没有留下";
+    messBody4.posterFavour = [NSMutableArray arrayWithObjects:nil];
+    messBody4.isFavour = NO;
     
     WFMessageBody *messBody5 = [[WFMessageBody alloc] init];
     messBody5.posterContent = kShuoshuoText5;
     messBody5.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"3.png"];
     messBody5.posterReplies = [NSMutableArray arrayWithObjects:body2,body4,body5, nil];
+    messBody5.posterImgstr = @"mao.jpg";
+    messBody5.posterName = @"阿克蒙德";
+    messBody5.posterIntro = @"这个人很懒，什么都没有留下";
+    messBody5.posterFavour = [NSMutableArray arrayWithObjects:@"钢铁女武神",@"希尔瓦娜斯",@"格鲁尔",@"石锤人类女圣骑丨阿诺丨", nil];
+    messBody5.isFavour = NO;
     
     WFMessageBody *messBody6 = [[WFMessageBody alloc] init];
     messBody6.posterContent = kShuoshuoText5;
     messBody6.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"3.png",@"2.png"];
     messBody6.posterReplies = [NSMutableArray arrayWithObjects:body2,body4,body5,body4,body6, nil];
-
+    messBody6.posterImgstr = @"mao.jpg";
+    messBody6.posterName = @"红领巾";
+    messBody6.posterIntro = @"这个人很懒，什么都没有留下";
+    messBody6.posterFavour = [NSMutableArray arrayWithObjects:@"爆裂熔炉",@"希尔瓦娜斯",@"阿尔萨斯",@"死亡之翼",@"玛里苟斯", nil];
+    messBody6.isFavour = NO;
     
     
     [_contentDataSource addObject:messBody1];
@@ -187,6 +219,8 @@
         
         ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
         
+        ymData.favourHeight = [ymData calculateFavourHeightWithWidth:self.view.frame.size.width];
+        
         [_tableDataSource addObject:ymData];
         
     }
@@ -234,8 +268,8 @@
    
     YMTextData *ym = [_tableDataSource objectAtIndex:indexPath.row];
     BOOL unfold = ym.foldOrNot;
-    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance;
-    
+    return TableHeader + kLocationToBottom + ym.replyHeight + ym.showImageHeight  + kDistance + (ym.islessLimit?0:30) + (unfold?ym.shuoshuoHeight:ym.unFoldShuoHeight) + kReplyBtnDistance + ym.favourHeight + (ym.favourHeight == 0?0:kReply_FavourDistance);
+   
 }
 
 
@@ -248,7 +282,6 @@
         cell = [[YMTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.stamp = indexPath.row;
-   // cell.replyBtn.tag = indexPath.row;
     cell.replyBtn.appendIndexPath = indexPath;
     [cell.replyBtn addTarget:self action:@selector(replyAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.delegate = self;
@@ -264,62 +297,75 @@
 - (void)replyAction:(YMButton *)sender{
      
     CGRect rectInTableView = [mainTable rectForRowAtIndexPath:sender.appendIndexPath];
-    float origin_Y = rectInTableView.origin.y + sender.frame.origin.y;
-  
-    if (replyBtn) {
-        
-        [UIView animateWithDuration:0.25f animations:^{
-            
-            replyBtn.frame = CGRectMake(sender.frame.origin.x, origin_Y - 10 , 0, 38);
-        } completion:^(BOOL finished) {
-            NSLog(@"销毁");
-            [replyBtn removeFromSuperview];
-            replyBtn = nil;
-            
-        }];
-
-        
-       
-    }else{
-    
-        replyBtn = [YMButton buttonWithType:0];
-        replyBtn.layer.cornerRadius = 5;
-        replyBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:37/255.0 blue:38/255.0 alpha:1.0];
-        replyBtn.frame = CGRectMake(sender.frame.origin.x , origin_Y - 10 , 0, 38);
-        [replyBtn setTitleColor:[UIColor whiteColor] forState:0];
-        replyBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-        replyBtn.tag = sender.appendIndexPath.row;
-        [mainTable addSubview:replyBtn];
-        [replyBtn addTarget:self action:@selector(replyMessage:) forControlEvents:UIControlEventTouchUpInside];
-        
-        
-        [UIView animateWithDuration:0.25f animations:^{
-                replyBtn.frame = CGRectMake(sender.frame.origin.x - 60, origin_Y  - 10 , 60, 38);
-        } completion:^(BOOL finished) {
-            [replyBtn setTitle:@"评论" forState:0];
-        }];
-    
+    CGFloat origin_Y = rectInTableView.origin.y + sender.frame.origin.y;
+    CGRect targetRect = CGRectMake(CGRectGetMinX(sender.frame), origin_Y, CGRectGetWidth(sender.bounds), CGRectGetHeight(sender.bounds));
+    if (self.operationView.shouldShowed) {
+        [self.operationView dismiss];
+        return;
     }
-    
+    _selectedIndexPath = sender.appendIndexPath;
+    YMTextData *ym = [_tableDataSource objectAtIndex:_selectedIndexPath.row];
+    [self.operationView showAtView:mainTable rect:targetRect isFavour:ym.hasFavour];
+}
 
+
+
+- (WFPopView *)operationView {
+    if (!_operationView) {
+        _operationView = [WFPopView initailzerWFOperationView];
+        WS(ws);
+        _operationView.didSelectedOperationCompletion = ^(WFOperationType operationType) {
+            switch (operationType) {
+                case WFOperationTypeLike:
+                    
+                    [ws addLike];
+                    break;
+                case WFOperationTypeReply:
+                     [ws replyMessage: nil];
+                    break;
+                default:
+                    break;
+            }
+        };
+    }
+    return _operationView;
+}
+
+#pragma mark - 赞
+- (void)addLike{
+    
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:_selectedIndexPath.row];
+    WFMessageBody *m = ymData.messageBody;
+    if (m.isFavour == YES) {//此时该取消赞
+        [m.posterFavour removeObject:kAdmin];
+        m.isFavour = NO;
+    }else{
+        [m.posterFavour addObject:kAdmin];
+        m.isFavour = YES;
+    }
+    ymData.messageBody = m;
+    
+    
+    //清空属性数组。否则会重复添加
+    
+    [ymData.attributedDataFavour removeAllObjects];
+    
+    
+    ymData.favourHeight = [ymData calculateFavourHeightWithWidth:self.view.frame.size.width];
+    [_tableDataSource replaceObjectAtIndex:_selectedIndexPath.row withObject:ymData];
+    
+    [mainTable reloadData];
 
 }
 
+
 #pragma mark - 真の评论
 - (void)replyMessage:(YMButton *)sender{
-    //NSLog(@"TAG === %d",sender.tag);
-    
-    if (replyBtn){
-        [replyBtn removeFromSuperview];
-        replyBtn = nil;
-    }
-   // NSLog(@"alloc reply");
-        
+
     replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
     replyView.delegate = self;
     replyView.replyTag = sender.tag;
     [self.view addSubview:replyView];
-
 
 }
 
@@ -327,10 +373,7 @@
 #pragma mark -移除评论按钮
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    if (replyBtn) {
-        [replyBtn removeFromSuperview];
-        replyBtn = nil;
-    }
+    [self.operationView dismiss] ;
 
 }
 
@@ -378,12 +421,9 @@
     body.repliedUser = @"";
     body.replyInfo = replyText;
     
-   
-    
     YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
     WFMessageBody *m = ymData.messageBody;
     [m.posterReplies addObject:body];
-    
     ymData.messageBody = m;
     
     

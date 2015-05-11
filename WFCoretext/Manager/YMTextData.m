@@ -15,7 +15,7 @@
 
 @implementation YMTextData{
     
-    BOOL isReplyView;
+    TypeView typeview;
     int tempInt;
 }
 
@@ -29,6 +29,7 @@
         self.completionReplySource = [[NSMutableArray alloc] init];
         self.attributedDataReply = [[NSMutableArray alloc] init];
         self.attributedDataShuoshuo = [[NSMutableArray alloc] init];
+        self.attributedDataFavour = [[NSMutableArray alloc] init];
         
         _foldOrNot = YES;
         _islessLimit = NO;
@@ -40,13 +41,13 @@
 - (void)setMessageBody:(WFMessageBody *)messageBody{
 
     _messageBody = messageBody;
-    self.showImageArray = messageBody.posterPostImage;
-    self.foldOrNot = YES;
-    self.showShuoShuo = messageBody.posterContent;
-    self.defineAttrData = [self findAttrWith:messageBody.posterReplies];
-    self.replyDataSource = messageBody.posterReplies;
-
-
+    _showImageArray = messageBody.posterPostImage;
+    _foldOrNot = YES;
+    _showShuoShuo = messageBody.posterContent;
+    _defineAttrData = [self findAttrWith:messageBody.posterReplies];
+    _replyDataSource = messageBody.posterReplies;
+    _favourArray = messageBody.posterFavour;
+    _hasFavour = messageBody.isFavour;
 }
 
 
@@ -73,19 +74,43 @@
     
 }
 
+- (float)calculateFavourHeightWithWidth:(float)sizeWidth{
+    
+    typeview = TypeFavour;
+    float height = .0f;
+  
+    NSString *matchString = [_favourArray componentsJoinedByString:@","];
+    _showFavour = matchString;
+    NSArray *itemIndexs = [ILRegularExpressionManager itemIndexesWithPattern:EmotionItemPattern inString:matchString];
+    
+   
+    NSString *newString = [matchString replaceCharactersAtIndexes:itemIndexs
+                                                       withString:PlaceHolder];
+    //存新的
+    self.completionFavour = newString;
+    
+    [self matchString:newString fromView:typeview];
+    
+    WFTextView *_wfcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(20,10, sizeWidth - 2*20, 0)];
+    
+    _wfcoreText.isDraw = NO;
+    
+    [_wfcoreText setOldString:_showFavour andNewString:newString];
+   
+    return [_wfcoreText getTextHeight];
+    
+    return height;
+}
+
 //计算replyview高度
 - (float) calculateReplyHeightWithWidth:(float)sizeWidth{
     
-    isReplyView = YES;
+    typeview = TypeReply;
     float height = .0f;
     
     for (int i = 0; i < self.replyDataSource.count; i ++ ) {
         
-        
-        
         tempInt = i;
-        
-        
         
         WFReplyBody *body = (WFReplyBody *)[self.replyDataSource objectAtIndex:i];
         
@@ -105,7 +130,7 @@
         //存新的
         [self.completionReplySource addObject:newString];
         
-        [self matchString:newString fromView:isReplyView];
+        [self matchString:newString fromView:typeview];
         
         WFTextView *_ilcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X,10, sizeWidth - offSet_X * 2, 0)];
         
@@ -133,9 +158,9 @@
     
 }
 
-- (void)matchString:(NSString *)dataSourceString fromView:(BOOL) isReplyV{
+- (void)matchString:(NSString *)dataSourceString fromView:(TypeView) isReplyV{
     
-    if (isReplyV == YES) {
+    if (isReplyV == TypeReply) {
         
         NSMutableArray *totalArr = [NSMutableArray arrayWithCapacity:0];
         
@@ -174,8 +199,11 @@
         [self.attributedDataReply addObject:totalArr];
         
         
-    }else{
+    }
+    
+    if(isReplyV == TypeShuoshuo){
         
+         [self.attributedDataShuoshuo removeAllObjects];
         //**********号码******
         
         NSMutableArray *mobileLink = [ILRegularExpressionManager matchMobileLink:dataSourceString];
@@ -194,16 +222,26 @@
             
             [self.attributedDataShuoshuo addObject:[webLink objectAtIndex:i]];
         }
-        
+       
     }
     
-    
+    if (isReplyV == TypeFavour) {
+        
+        [self.attributedDataFavour removeAllObjects];
+        int originX = 0;
+        for (int i = 0; i < _favourArray.count; i ++) {
+            NSString *text = [_favourArray objectAtIndex:i];
+            NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:text,NSStringFromRange(NSMakeRange(originX, text.length)), nil];
+            [self.attributedDataFavour addObject:dic];
+            originX += (1 + text.length);
+        }
+    }
 }
 
 //说说高度
 - (float) calculateShuoshuoHeightWithWidth:(float)sizeWidth withUnFoldState:(BOOL)isUnfold{
     
-    isReplyView = NO;
+    typeview = TypeShuoshuo;
     
     NSString *matchString =  _showShuoShuo;
     
@@ -215,7 +253,7 @@
     //存新的
     self.completionShuoshuo = newString;
     
-    [self matchString:newString fromView:isReplyView];
+    [self matchString:newString fromView:typeview];
     
     WFTextView *_wfcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(20,10, sizeWidth - 2*20, 0)];
     

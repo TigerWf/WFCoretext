@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D231B5681B00ABC9005B9E95 /* WFPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = D231B5671B00ABC9005B9E95 /* WFPopView.m */; };
 		D248D3EE1AF075DE004E8F3D /* WFMessageBody.m in Sources */ = {isa = PBXBuildFile; fileRef = D248D3ED1AF075DE004E8F3D /* WFMessageBody.m */; };
 		D2669DE71A075A6800EF7532 /* personal_showBac@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D2669DE61A075A6800EF7532 /* personal_showBac@2x.png */; };
 		D2669DEC1A075EAD00EF7532 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = D2669DE91A075EAD00EF7532 /* 1.png */; };
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D231B5661B00ABC9005B9E95 /* WFPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFPopView.h; sourceTree = "<group>"; };
+		D231B5671B00ABC9005B9E95 /* WFPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFPopView.m; sourceTree = "<group>"; };
 		D248D3EC1AF075DE004E8F3D /* WFMessageBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFMessageBody.h; sourceTree = "<group>"; };
 		D248D3ED1AF075DE004E8F3D /* WFMessageBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFMessageBody.m; sourceTree = "<group>"; };
 		D2669DE61A075A6800EF7532 /* personal_showBac@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personal_showBac@2x.png"; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 				D2669DF51A076ED000EF7532 /* YMShowImageView.m */,
 				D2CD95C01A08BF3700EFEE45 /* YMButton.h */,
 				D2CD95C11A08BF3700EFEE45 /* YMButton.m */,
+				D231B5661B00ABC9005B9E95 /* WFPopView.h */,
+				D231B5671B00ABC9005B9E95 /* WFPopView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				D27CF9121A00B60F006B2D2B /* NSString+NSString_ILExtension.m in Sources */,
 				D27CF91B1A00B660006B2D2B /* DetailViewController.m in Sources */,
 				D27CF9231A00B6A2006B2D2B /* YMTableViewCell.m in Sources */,
+				D231B5681B00ABC9005B9E95 /* WFPopView.m in Sources */,
 				D27CF91C1A00B660006B2D2B /* ViewController.m in Sources */,
 				D28ACE941AEF905B00CC7751 /* WFReplyBody.m in Sources */,
 				D2CD95C21A08BF3700EFEE45 /* YMButton.m in Sources */,

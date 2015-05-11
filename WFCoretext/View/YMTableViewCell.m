@@ -10,6 +10,7 @@
 #import "WFReplyBody.h"
 #import "ContantHead.h"
 #import "YMTapGestureRecongnizer.h"
+#import "WFHudView.h"
 
 #define kImageTag 9999
 
@@ -29,35 +30,33 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor clearColor];
         
-        UIImageView *headerImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 5, 50, TableHeader)];
-        headerImage.backgroundColor = [UIColor clearColor];
-        headerImage.image = [UIImage imageNamed:@"mao.jpg"];
-        CALayer *layer = [headerImage layer];
+        _userHeaderImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 5, 50, TableHeader)];
+        _userHeaderImage.backgroundColor = [UIColor clearColor];
+        CALayer *layer = [_userHeaderImage layer];
         [layer setMasksToBounds:YES];
         [layer setCornerRadius:10.0];
         [layer setBorderWidth:1];
         [layer setBorderColor:[[UIColor colorWithRed:63/255.0 green:107/255.0 blue:252/255.0 alpha:1.0] CGColor]];
-        [self.contentView addSubview:headerImage];
+        [self.contentView addSubview:_userHeaderImage];
         
-        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5, screenWidth - 120, TableHeader/2)];
-        nameLbl.textAlignment = NSTextAlignmentLeft;
-        nameLbl.text = @"迪恩·温彻斯特";
-        nameLbl.font = [UIFont systemFontOfSize:15.0];
-        nameLbl.textColor = [UIColor colorWithRed:104/255.0 green:109/255.0 blue:248/255.0 alpha:1.0];
-        [self.contentView addSubview:nameLbl];
-        
+        _userNameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5, screenWidth - 120, TableHeader/2)];
+        _userNameLbl.textAlignment = NSTextAlignmentLeft;
+        _userNameLbl.font = [UIFont systemFontOfSize:15.0];
+        _userNameLbl.textColor = [UIColor colorWithRed:104/255.0 green:109/255.0 blue:248/255.0 alpha:1.0];
+        [self.contentView addSubview:_userNameLbl];
         
         
-        UILabel *introLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5 + TableHeader/2 , screenWidth - 120, TableHeader/2)];
-        introLbl.numberOfLines = 1;
-        introLbl.font = [UIFont systemFontOfSize:14.0];
-        introLbl.textColor = [UIColor grayColor];
-        introLbl.text = @"这个人很懒，什么都没有留下";
-        [self.contentView addSubview:introLbl];
+        
+        _userIntroLbl = [[UILabel alloc] initWithFrame:CGRectMake(20 + TableHeader + 20, 5 + TableHeader/2 , screenWidth - 120, TableHeader/2)];
+        _userIntroLbl.numberOfLines = 1;
+        _userIntroLbl.font = [UIFont systemFontOfSize:14.0];
+        _userIntroLbl.textColor = [UIColor grayColor];
+        [self.contentView addSubview:_userIntroLbl];
         
         _imageArray = [[NSMutableArray alloc] init];
         _ymTextArray = [[NSMutableArray alloc] init];
         _ymShuoshuoArray = [[NSMutableArray alloc] init];
+        _ymFavourArray = [[NSMutableArray alloc] init];
         
         foldBtn = [UIButton buttonWithType:0];
         [foldBtn setTitle:@"展开" forState:0];
@@ -103,11 +102,15 @@
 
 
 - (void)setYMViewWith:(YMTextData *)ymData{
-    
-    // NSLog(@"width = %f",screenWidth);
-    
+  
     tempDate = ymData;
     
+#pragma mark -  //头像 昵称 简介
+    _userHeaderImage.image = [UIImage imageNamed:tempDate.messageBody.posterImgstr];
+    _userNameLbl.text = tempDate.messageBody.posterName;
+    _userIntroLbl.text = tempDate.messageBody.posterIntro;
+    
+    //移除说说view 避免滚动时内容重叠
     for ( int i = 0; i < _ymShuoshuoArray.count; i ++) {
         WFTextView * imageV = (WFTextView *)[_ymShuoshuoArray objectAtIndex:i];
         if (imageV.superview) {
@@ -117,7 +120,9 @@
     }
     
     [_ymShuoshuoArray removeAllObjects];
-    
+  
+#pragma mark - // /////////添加说说view
+
     WFTextView *textView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X, 15 + TableHeader, screenWidth - 2 * offSet_X, 0)];
     textView.delegate = self;
     textView.attributedData = ymData.attributedDataShuoshuo;
@@ -136,7 +141,7 @@
     //按钮
     foldBtn.frame = CGRectMake(offSet_X - 10, 15 + TableHeader + hhhh + 10 , 50, 20 );
     
-    if (ymData.islessLimit) {
+    if (ymData.islessLimit) {//小于最小限制 隐藏折叠展开按钮
         
         foldBtn.hidden = YES;
     }else{
@@ -152,7 +157,7 @@
         [foldBtn setTitle:@"收起" forState:0];
     }
     
-    //图片部分
+#pragma mark - /////// //图片部分
     for (int i = 0; i < [_imageArray count]; i++) {
         
         UIImageView * imageV = (UIImageView *)[_imageArray objectAtIndex:i];
@@ -181,7 +186,45 @@
         
     }
     
-    //最下方回复部分
+#pragma mark - /////点赞部分
+    //移除点赞view 避免滚动时内容重叠
+    for ( int i = 0; i < _ymFavourArray.count; i ++) {
+        WFTextView * imageV = (WFTextView *)[_ymFavourArray objectAtIndex:i];
+        if (imageV.superview) {
+            [imageV removeFromSuperview];
+            
+        }
+    }
+    
+    [_ymFavourArray removeAllObjects];
+
+    
+    float origin_Y = 10;
+    NSUInteger scale_Y = ymData.showImageArray.count - 1;
+    float balanceHeight = 0; //纯粹为了解决没图片高度的问题
+    if (ymData.showImageArray.count == 0) {
+        scale_Y = 0;
+        balanceHeight = - ShowImage_H - kDistance ;
+    }
+    
+    float backView_Y = 0;
+    float backView_H = 0;
+    
+    
+    WFTextView *favourView = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X, TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - 2 * offSet_X, 0)];
+    favourView.delegate = self;
+    favourView.attributedData = ymData.attributedDataFavour;
+    favourView.isDraw = YES;
+    favourView.canClickAll = NO;
+    favourView.textColor = [UIColor redColor];
+    [favourView setOldString:ymData.showFavour andNewString:ymData.completionFavour];
+    favourView.frame = CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2, ymData.favourHeight);
+    [self.contentView addSubview:favourView];
+    backView_H += ((ymData.favourHeight == 0)?(-kReply_FavourDistance):ymData.favourHeight);
+    [_ymFavourArray addObject:favourView];
+    
+    
+#pragma mark - ///// //最下方回复部分
     for (int i = 0; i < [_ymTextArray count]; i++) {
         
         WFTextView * ymTextView = (WFTextView *)[_ymTextArray objectAtIndex:i];
@@ -194,20 +237,11 @@
     }
     
     [_ymTextArray removeAllObjects];
-    float origin_Y = 10;
-    NSUInteger scale_Y = ymData.showImageArray.count - 1;
-    float balanceHeight = 0; //纯粹为了解决没图片高度的问题
-    if (ymData.showImageArray.count == 0) {
-        scale_Y = 0;
-        balanceHeight = - ShowImage_H - kDistance ;
-    }
-    
-    float backView_Y = 0;
-    float backView_H = 0;
+  
     
     for (int i = 0; i < ymData.replyDataSource.count; i ++ ) {
         
-        WFTextView *_ilcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2, 0)];
+        WFTextView *_ilcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ymData.favourHeight + (ymData.favourHeight == 0?0:kReply_FavourDistance), screenWidth - offSet_X * 2, 0)];
         
         if (i == 0) {
             backView_Y = TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30);
@@ -232,7 +266,7 @@
         
         [_ilcoreText setOldString:matchString andNewString:[ymData.completionReplySource objectAtIndex:i]];
         
-        _ilcoreText.frame = CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance, screenWidth - offSet_X * 2, [_ilcoreText getTextHeight]);
+        _ilcoreText.frame = CGRectMake(offSet_X,TableHeader + 10 + ShowImage_H + (ShowImage_H + 10)*(scale_Y/3) + origin_Y + hhhh + kDistance + (ymData.islessLimit?0:30) + balanceHeight + kReplyBtnDistance + ymData.favourHeight + (ymData.favourHeight == 0?0:kReply_FavourDistance), screenWidth - offSet_X * 2, [_ilcoreText getTextHeight]);
         [self.contentView addSubview:_ilcoreText];
         origin_Y += [_ilcoreText getTextHeight] + 5 ;
         
@@ -252,7 +286,7 @@
         
     }else{
         
-        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20 - 12);//微调
+        replyImageView.frame = CGRectMake(offSet_X, backView_Y - 10 + balanceHeight + 5 + kReplyBtnDistance, screenWidth - offSet_X * 2, backView_H + 20 - 8);//微调
         
         _replyBtn.frame = CGRectMake(screenWidth - offSet_X - 40 + 6, replyImageView.frame.origin.y - 24, 40, 18);
         
@@ -285,7 +319,7 @@
         NSLog(@"reply");
     }else{
        //do nothing
-    
+        [WFHudView showMsg:clickString inView:nil];
     }
     
 }

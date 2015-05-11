@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, GestureType) {
 
 #define kDistance 20 //说说和图片的间隔
 #define kReplyBtnDistance 30 //回复按钮距离
+#define kReply_FavourDistance 8 //回复按钮到点赞的距离
 #define AttributedImageNameKey      @"ImageName"
 
 #define screenWidth  [UIScreen mainScreen].bounds.size.width
@@ -34,6 +35,8 @@ typedef NS_ENUM(NSInteger, GestureType) {
 #define kUserName_SelectedColor [UIColor colorWithWhite:0 alpha:0.25]//点击姓名颜色
 
 #define DELAYEXECUTE(delayTime,func) (dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{func;}))
+
+#define WS(weakSelf)  __weak __typeof(self)weakSelf = self;
 
 #define kContentText1 @"思想不会流血，不会感到痛苦，思想不会死去"
 

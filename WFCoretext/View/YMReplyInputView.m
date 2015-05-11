@@ -405,7 +405,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
    
     if ([textView.text isEqualToString:@""]) {
         
-        NSLog(@"无内容");
+        //NSLog(@"无内容");
         return;
     }
     
