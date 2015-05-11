@@ -117,7 +117,7 @@
     eMark.markContent = [chapterContent substringWithRange:chapterRange];
     eMark.markTime    = locationString;
     
-    NSLog(@"chapterRange == %@",NSStringFromRange(chapterRange));
+  //  NSLog(@"chapterRange == %@",NSStringFromRange(chapterRange));
     
     if (![self checkIfHasBookmark:chapterRange withChapter:currentChapter]) {//没加书签
        

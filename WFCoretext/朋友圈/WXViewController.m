@@ -415,7 +415,7 @@
 #pragma mark - 评论说说回调
 - (void)YMReplyInputWithReply:(NSString *)replyText appendTag:(NSInteger)inputTag{
     
-    NSLog(@"inputTag === %zi",inputTag);
+    //NSLog(@"inputTag === %zi",inputTag);
     WFReplyBody *body = [[WFReplyBody alloc] init];
     body.replyUser = kAdmin;
     body.repliedUser = @"";
