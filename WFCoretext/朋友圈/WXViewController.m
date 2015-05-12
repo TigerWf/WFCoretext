@@ -60,7 +60,7 @@
     
     
     WFReplyBody *body1 = [[WFReplyBody alloc] init];
-    body1.replyUser = @"山姆";
+    body1.replyUser = kAdmin;
     body1.repliedUser = @"红领巾";
     body1.replyInfo = kContentText1;
     
@@ -129,7 +129,7 @@
     WFMessageBody *messBody4 = [[WFMessageBody alloc] init];
     messBody4.posterContent = kShuoshuoText4;
     messBody4.posterPostImage = @[@"1.png",@"2.png",@"3.png",@"1.png",@"3.png"];
-    messBody4.posterReplies = [NSMutableArray arrayWithObjects:body1,body2,body4,body5, nil];
+    messBody4.posterReplies = [NSMutableArray arrayWithObjects:body1, nil];
     messBody4.posterImgstr = @"mao.jpg";
     messBody4.posterName = @"基尔加丹";
     messBody4.posterIntro = @"这个人很懒，什么都没有留下";
@@ -525,7 +525,7 @@
 
 - (void)dealloc{
     
- 
+    NSLog(@"销毁");
 
 }
 

@@ -1002,11 +1002,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WFCoretext/&#x9605;&#x8bfb;&#x5668;/EReader/ViewController/E_ScrollViewController.m"
-            timestampString = "453056843.622351"
+            timestampString = "453113463.421683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "-goBack"
             landmarkType = "5">
          </BreakpointContent>
@@ -1056,6 +1056,22 @@
             startingLineNumber = "498"
             endingLineNumber = "498"
             landmarkName = "-destorySelf"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WFCoretext/&#x670b;&#x53cb;&#x5708;/WXViewController.m"
+            timestampString = "453114854.718242"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
+            landmarkName = "-dealloc"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

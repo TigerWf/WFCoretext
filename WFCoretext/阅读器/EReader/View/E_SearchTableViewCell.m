@@ -2,7 +2,7 @@
 //  E_SearchTableViewCell.m
 //  WFReader
 //
-//  Created by 吴福虎 on 15/2/28.
+//  Created by 阿虎 on 15/2/28.
 //  Copyright (c) 2015年 tigerwf. All rights reserved.
 //
 

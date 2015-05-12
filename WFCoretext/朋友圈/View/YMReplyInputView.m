@@ -2,7 +2,7 @@
 //  HXReplyInputView.m
 //  Hongxiu
 //
-//  Created by 吴福虎 on 14-8-18.
+//  Created by 阿虎 on 14-8-18.
 //  Copyright (c) 2014年 FeeTan. All rights reserved.
 //
 

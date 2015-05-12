@@ -2,7 +2,7 @@
 //  E_SettingBottomBar.h
 //  WFReader
 //
-//  Created by 吴福虎 on 15/2/13.
+//  Created by 阿虎 on 15/2/13.
 //  Copyright (c) 2015年 tigerwf. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  ILSlider.m
 //  ILSlider
 //
-//  Created by 吴福虎 on 14-10-17.
+//  Created by 阿虎 on 14-10-17.
 //  Copyright (c) 2014年 tigerwf. All rights reserved.
 //
 
