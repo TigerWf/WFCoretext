@@ -14,7 +14,7 @@
 
 @protocol WFCoretextDelegate <NSObject>
 
-- (void)clickWFCoretext:(NSString *)clickString;
+- (void)clickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index;
 
 @end
 
@@ -29,6 +29,7 @@
 @property (nonatomic,assign) id<WFCoretextDelegate>delegate;
 @property (nonatomic,assign) CFIndex limitCharIndex;//限制行的最后一个char的index
 @property (nonatomic,assign) BOOL canClickAll;//是否可点击整段文字
+@property (nonatomic,assign) NSInteger replyIndex;
 
 @property (nonatomic,strong) UIColor *textColor;
 

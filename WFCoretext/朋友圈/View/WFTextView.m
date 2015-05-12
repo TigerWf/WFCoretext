@@ -47,6 +47,7 @@
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapMyself:)];
         [self addGestureRecognizer:tapGes];
         
+        _replyIndex = -1;//默认为-1 代表点击的是说说的整块区域
         
         UILongPressGestureRecognizer *longGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressMyself:)];
         [self addGestureRecognizer:longGes];
@@ -439,7 +440,7 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
             [self drawViewFromRects:arr withDictValue:[[_attributedData objectAtIndex:i] valueForKey:key]];
             
             NSString *feedString = [[_attributedData objectAtIndex:i] valueForKey:key];
-            [_delegate clickWFCoretext:feedString];
+            [_delegate clickWFCoretext:feedString replyIndex:_replyIndex];
             return YES;
         }
         
@@ -530,7 +531,7 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
     myselfSelected.tag = 10102;
     [self insertSubview:myselfSelected belowSubview:self];
     myselfSelected.backgroundColor = kSelf_SelectedColor;
-    [_delegate clickWFCoretext:@""];
+    [_delegate clickWFCoretext:@"" replyIndex:_replyIndex];
     
     DELAYEXECUTE(0.3, {
         if ([self viewWithTag:10102]) {

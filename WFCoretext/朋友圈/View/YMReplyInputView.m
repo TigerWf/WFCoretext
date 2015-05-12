@@ -88,6 +88,7 @@
     textViewBackgroundView.userInteractionEnabled = NO;
     textViewBackgroundView.enabled = NO;
 	[self addSubview:textViewBackgroundView];
+
     
 	textView = [[UITextView alloc] initWithFrame:CGRectMake(70.0f, topGap, 185 + screenWidth - 320, 0)];
     textView.backgroundColor = [UIColor clearColor];

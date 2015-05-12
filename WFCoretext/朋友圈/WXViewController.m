@@ -15,14 +15,14 @@
 #import "WFReplyBody.h"
 #import "WFMessageBody.h"
 #import "WFPopView.h"
-
+#import "WFActionSheet.h"
 
 #define dataCount 10
 #define kLocationToBottom 20
 #define kAdmin @"小虎-tiger"
 
 
-@interface WXViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate>
+@interface WXViewController ()<UITableViewDataSource,UITableViewDelegate,cellDelegate,InputDelegate,UIActionSheetDelegate>
 {
     NSMutableArray *_imageDataSource;
     
@@ -37,6 +37,8 @@
     UIView *popView;
     
     YMReplyInputView *replyView ;
+    
+    NSInteger _replyIndex;
     
     
 }
@@ -54,6 +56,8 @@
     
     _tableDataSource = [[NSMutableArray alloc] init];
     _contentDataSource = [[NSMutableArray alloc] init];
+    _replyIndex = -1;//代表是直接评论
+    
     
     WFReplyBody *body1 = [[WFReplyBody alloc] init];
     body1.replyUser = @"山姆";
@@ -169,7 +173,7 @@
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     backBtn.frame = CGRectMake(0, 20, self.view.frame.size.width, 44);
-    [backBtn setTitle:@"我是返回" forState:UIControlStateNormal];
+    [backBtn setTitle:[NSString stringWithFormat:@"我是返回,该登陆用户为%@",kAdmin] forState:UIControlStateNormal];
     backBtn.backgroundColor = [UIColor clearColor];
     [self.view addSubview:backBtn];
     [backBtn addTarget:self action:@selector(backToPre) forControlEvents:UIControlEventTouchUpInside];
@@ -209,7 +213,7 @@
 - (void)calculateHeight:(NSMutableArray *)dataArray{
 
     
-   // NSDate* tmpStartData = [NSDate date];
+    NSDate* tmpStartData = [NSDate date];
     
     for (YMTextData *ymData in dataArray) {
         
@@ -225,8 +229,8 @@
         
     }
     
-//    double deltaTime = [[NSDate date] timeIntervalSinceDate:tmpStartData];
-  //  NSLog(@"cost time = %f", deltaTime);
+    double deltaTime = [[NSDate date] timeIntervalSinceDate:tmpStartData];
+    NSLog(@"cost time = %f", deltaTime);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -361,7 +365,10 @@
 
 #pragma mark - 真の评论
 - (void)replyMessage:(YMButton *)sender{
-
+    
+    if (replyView) {
+        return;
+    }
     replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
     replyView.delegate = self;
     replyView.replyTag = _selectedIndexPath.row;
@@ -373,7 +380,7 @@
 #pragma mark -移除评论按钮
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    [self.operationView dismiss] ;
+    [self.operationView dismiss];
 
 }
 
@@ -389,7 +396,6 @@
 #pragma mark - 图片点击事件回调
 - (void)showImageViewWithImageViews:(NSArray *)imageViews byClickWhich:(NSInteger)clickTag{
    
-    
     UIView *maskview = [[UIView alloc] initWithFrame:self.view.bounds];
     maskview.backgroundColor = [UIColor blackColor];
     [self.view addSubview:maskview];
@@ -412,19 +418,66 @@
 
 }
 
+#pragma mark - 点评论整块区域的回调
+- (void)clickRichText:(NSInteger)index replyIndex:(NSInteger)replyIndex{
+    
+    [self.operationView dismiss];
+    
+    _replyIndex = replyIndex;
+    
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:index];
+    WFReplyBody *b = [ymData.messageBody.posterReplies objectAtIndex:replyIndex];
+    if ([b.replyUser isEqualToString:kAdmin]) {
+        WFActionSheet *actionSheet = [[WFActionSheet alloc] initWithTitle:@"删除评论？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        actionSheet.actionIndex = index;
+        [actionSheet showInView:self.view];
+        
+        
+        
+    }else{
+       //回复
+        if (replyView) {
+            return;
+        }
+        replyView = [[YMReplyInputView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, screenWidth,44) andAboveView:self.view];
+        replyView.delegate = self;
+        replyView.lblPlaceholder.text = [NSString stringWithFormat:@"回复%@:",b.replyUser];
+        replyView.replyTag = index;
+        [self.view addSubview:replyView];
+    }
+}
+
 #pragma mark - 评论说说回调
 - (void)YMReplyInputWithReply:(NSString *)replyText appendTag:(NSInteger)inputTag{
     
-    //NSLog(@"inputTag === %zi",inputTag);
-    WFReplyBody *body = [[WFReplyBody alloc] init];
-    body.replyUser = kAdmin;
-    body.repliedUser = @"";
-    body.replyInfo = replyText;
-    
-    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
-    WFMessageBody *m = ymData.messageBody;
-    [m.posterReplies addObject:body];
-    ymData.messageBody = m;
+    YMTextData *ymData = nil;
+    if (_replyIndex == -1) {
+        
+        WFReplyBody *body = [[WFReplyBody alloc] init];
+        body.replyUser = kAdmin;
+        body.repliedUser = @"";
+        body.replyInfo = replyText;
+        
+        ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
+        WFMessageBody *m = ymData.messageBody;
+        [m.posterReplies addObject:body];
+        ymData.messageBody = m;
+        
+    }else{
+        
+        ymData = (YMTextData *)[_tableDataSource objectAtIndex:inputTag];
+        WFMessageBody *m = ymData.messageBody;
+        
+        WFReplyBody *body = [[WFReplyBody alloc] init];
+        body.replyUser = kAdmin;
+        body.repliedUser = [(WFReplyBody *)[m.posterReplies objectAtIndex:_replyIndex] replyUser];
+        body.replyInfo = replyText;
+        
+        [m.posterReplies addObject:body];
+        ymData.messageBody = m;
+
+    }
+   
     
     
     //清空属性数组。否则会重复添加
@@ -444,9 +497,31 @@
   //  NSLog(@"dealloc reply");
     [replyView removeFromSuperview];
     replyView = nil;
+    _replyIndex = -1;
 
 }
 
+- (void)actionSheet:(WFActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        //delete
+        YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:actionSheet.actionIndex];
+        WFMessageBody *m = ymData.messageBody;
+        [m.posterReplies removeObjectAtIndex:_replyIndex];
+        ymData.messageBody = m;
+        [ymData.completionReplySource removeAllObjects];
+        [ymData.attributedDataReply removeAllObjects];
+        
+        
+        ymData.replyHeight = [ymData calculateReplyHeightWithWidth:self.view.frame.size.width];
+        [_tableDataSource replaceObjectAtIndex:actionSheet.actionIndex withObject:ymData];
+        
+        [mainTable reloadData];
+        
+    }else{
+        
+    }
+    _replyIndex = -1;
+}
 
 - (void)dealloc{
     

@@ -256,7 +256,7 @@
         }
         
         _ilcoreText.delegate = self;
-        
+        _ilcoreText.replyIndex = i;
         _ilcoreText.attributedData = [ymData.attributedDataReply objectAtIndex:i];
         
         
@@ -320,11 +320,12 @@
     
 }
 
-- (void)clickWFCoretext:(NSString *)clickString{
+- (void)clickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index{
     
     if ([clickString isEqualToString:@""]) {
        //reply
-        NSLog(@"reply");
+        //NSLog(@"reply");
+        [_delegate clickRichText:_stamp replyIndex:index];
     }else{
        //do nothing
         [WFHudView showMsg:clickString inView:nil];

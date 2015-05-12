@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D25579B41B01E8F6001DBC51 /* WFActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = D25579B31B01E8F6001DBC51 /* WFActionSheet.m */; };
 		D2BCD63D19F9F15600869AD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2BCD63C19F9F15600869AD5 /* main.m */; };
 		D2BCD64019F9F15600869AD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2BCD63F19F9F15600869AD5 /* AppDelegate.m */; };
 		D2BCD64619F9F15600869AD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2BCD64419F9F15600869AD5 /* Main.storyboard */; };
@@ -112,6 +113,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D25579B21B01E8F6001DBC51 /* WFActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFActionSheet.h; sourceTree = "<group>"; };
+		D25579B31B01E8F6001DBC51 /* WFActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFActionSheet.m; sourceTree = "<group>"; };
 		D2BCD63719F9F15600869AD5 /* WFCoretext.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WFCoretext.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2BCD63B19F9F15600869AD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2BCD63C19F9F15600869AD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -401,6 +404,8 @@
 				D2F589E11B0112D500F721CD /* WFPopView.m */,
 				D2F589E21B0112D500F721CD /* WFTextView.h */,
 				D2F589E31B0112D500F721CD /* WFTextView.m */,
+				D25579B21B01E8F6001DBC51 /* WFActionSheet.h */,
+				D25579B31B01E8F6001DBC51 /* WFActionSheet.m */,
 				D2F589E41B0112D500F721CD /* YMButton.h */,
 				D2F589E51B0112D500F721CD /* YMButton.m */,
 				D2F589E61B0112D500F721CD /* YMReplyInputView.h */,
@@ -752,6 +757,7 @@
 				D2F58A8A1B01151B00F721CD /* E_CommonManager.m in Sources */,
 				D2F58A091B0112D500F721CD /* YMTapGestureRecongnizer.m in Sources */,
 				D2F58AB11B01151B00F721CD /* E_SettingBottomBar.m in Sources */,
+				D25579B41B01E8F6001DBC51 /* WFActionSheet.m in Sources */,
 				D2F58AB31B01151B00F721CD /* ILSlider.m in Sources */,
 				D2F58ABB1B01151B00F721CD /* MJRefreshBaseView.m in Sources */,
 				D2F58ABE1B01151B00F721CD /* MJRefreshHeaderView.m in Sources */,
