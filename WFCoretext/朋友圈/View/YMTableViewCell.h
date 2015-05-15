@@ -17,6 +17,7 @@
 - (void)changeFoldState:(YMTextData *)ymD onCellRow:(NSInteger) cellStamp;
 - (void)showImageViewWithImageViews:(NSArray *)imageViews byClickWhich:(NSInteger)clickTag;
 - (void)clickRichText:(NSInteger)index replyIndex:(NSInteger)replyIndex;
+- (void)longClickRichText:(NSInteger)index replyIndex:(NSInteger)replyIndex;
 
 @end
 

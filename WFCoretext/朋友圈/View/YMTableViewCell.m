@@ -322,6 +322,14 @@
     
 }
 
+
+- (void)longClickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index{
+  
+    [_delegate longClickRichText:_stamp replyIndex:index];
+      
+}
+
+
 - (void)clickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index{
     
     if ([clickString isEqualToString:@""]) {

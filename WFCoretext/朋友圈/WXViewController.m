@@ -418,6 +418,18 @@
 
 }
 
+#pragma mark - 长按评论整块区域的回调
+- (void)longClickRichText:(NSInteger)index replyIndex:(NSInteger)replyIndex{
+
+    [self.operationView dismiss];
+    YMTextData *ymData = (YMTextData *)[_tableDataSource objectAtIndex:index];
+    WFReplyBody *b = [ymData.messageBody.posterReplies objectAtIndex:replyIndex];
+    
+    UIPasteboard *pboard = [UIPasteboard generalPasteboard];
+    pboard.string = b.replyInfo;
+
+}
+
 #pragma mark - 点评论整块区域的回调
 - (void)clickRichText:(NSInteger)index replyIndex:(NSInteger)replyIndex{
     

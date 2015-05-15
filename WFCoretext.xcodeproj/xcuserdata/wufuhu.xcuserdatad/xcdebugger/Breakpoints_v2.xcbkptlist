@@ -1018,11 +1018,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WFCoretext/&#x670b;&#x53cb;&#x5708;/View/YMTableViewCell.m"
-            timestampString = "453400461.056948"
+            timestampString = "453402067.603041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "-clickWFCoretext:replyIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1034,11 +1034,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WFCoretext/&#x670b;&#x53cb;&#x5708;/WXViewController.m"
-            timestampString = "453110268.34288"
+            timestampString = "453402067.603041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
             landmarkName = "-destorySelf"
             landmarkType = "5">
          </BreakpointContent>
@@ -1050,11 +1050,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WFCoretext/&#x670b;&#x53cb;&#x5708;/WXViewController.m"
-            timestampString = "453110268.34288"
+            timestampString = "453402067.603041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
+            startingLineNumber = "510"
+            endingLineNumber = "510"
             landmarkName = "-destorySelf"
             landmarkType = "5">
          </BreakpointContent>
@@ -1066,11 +1066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WFCoretext/&#x670b;&#x53cb;&#x5708;/WXViewController.m"
-            timestampString = "453114854.718242"
+            timestampString = "453402067.603041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
             landmarkName = "-dealloc"
             landmarkType = "5">
          </BreakpointContent>

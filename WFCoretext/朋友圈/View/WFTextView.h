@@ -16,6 +16,9 @@
 
 - (void)clickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index;
 
+- (void)longClickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index;
+
+
 @end
 
 @interface WFTextView : UIView

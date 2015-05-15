@@ -548,8 +548,7 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
     [self insertSubview:myselfSelected belowSubview:self];
     myselfSelected.backgroundColor = kSelf_SelectedColor;
     
-    UIPasteboard *pboard = [UIPasteboard generalPasteboard];
-    pboard.string = _oldString;
+    [_delegate longClickWFCoretext:@"" replyIndex:_replyIndex];
 
 }
 
