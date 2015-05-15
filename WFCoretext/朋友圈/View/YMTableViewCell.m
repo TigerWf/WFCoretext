@@ -220,6 +220,7 @@
     favourView.delegate = self;
     favourView.attributedData = ymData.attributedDataFavour;
     favourView.isDraw = YES;
+    favourView.isFold = NO;
     favourView.canClickAll = NO;
     favourView.textColor = [UIColor redColor];
     [favourView setOldString:ymData.showFavour andNewString:ymData.completionFavour];
@@ -257,6 +258,7 @@
         
         _ilcoreText.delegate = self;
         _ilcoreText.replyIndex = i;
+        _ilcoreText.isFold = NO;
         _ilcoreText.attributedData = [ymData.attributedDataReply objectAtIndex:i];
         
         

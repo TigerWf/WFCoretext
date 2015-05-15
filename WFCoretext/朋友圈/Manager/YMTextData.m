@@ -93,6 +93,7 @@
     
     WFTextView *_wfcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X + 30,10, sizeWidth - 2*offSet_X - 30, 0)];
     
+    _wfcoreText.isFold = NO;
     _wfcoreText.isDraw = NO;
     
     [_wfcoreText setOldString:_showFavour andNewString:newString];
@@ -134,6 +135,7 @@
         
         WFTextView *_ilcoreText = [[WFTextView alloc] initWithFrame:CGRectMake(offSet_X,10, sizeWidth - offSet_X * 2, 0)];
         
+        _ilcoreText.isFold = NO;
         _ilcoreText.isDraw = NO;
         
         [_ilcoreText setOldString:matchString andNewString:newString];

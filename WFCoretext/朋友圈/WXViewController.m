@@ -143,7 +143,7 @@
     messBody5.posterImgstr = @"mao.jpg";
     messBody5.posterName = @"阿克蒙德";
     messBody5.posterIntro = @"这个人很懒，什么都没有留下";
-    messBody5.posterFavour = [NSMutableArray arrayWithObjects:@"钢铁女武神",@"希尔瓦娜斯",@"格鲁尔",@"石锤人类女圣骑丨阿诺丨", nil];
+    messBody5.posterFavour = [NSMutableArray arrayWithObjects:@"希尔瓦娜斯",@"格鲁尔",@"魔兽世界5区石锤人类联盟女圣骑丨阿诺丨",@"钢铁女武神",@"魔兽世界5区石锤人类联盟女盗贼chaotics",@"克苏恩",@"克尔苏加德",@"钢铁议会", nil];
     messBody5.isFavour = NO;
     
     WFMessageBody *messBody6 = [[WFMessageBody alloc] init];
