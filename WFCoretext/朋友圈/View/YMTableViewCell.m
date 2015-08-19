@@ -325,20 +325,28 @@
 
 - (void)longClickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index{
   
-    [_delegate longClickRichText:_stamp replyIndex:index];
-      
+    if (index == -1) {
+        UIPasteboard *pboard = [UIPasteboard generalPasteboard];
+        pboard.string = clickString;
+    }else{
+        [_delegate longClickRichText:_stamp replyIndex:index];
+    }
+    
 }
 
 
 - (void)clickWFCoretext:(NSString *)clickString replyIndex:(NSInteger)index{
     
-    if ([clickString isEqualToString:@""]) {
+    if ([clickString isEqualToString:@""] && index != -1) {
        //reply
         //NSLog(@"reply");
         [_delegate clickRichText:_stamp replyIndex:index];
     }else{
-       //do nothing
-        [WFHudView showMsg:clickString inView:nil];
+        if (index == -1) {
+            //
+        }else{
+            [WFHudView showMsg:clickString inView:nil];
+        }
     }
     
 }

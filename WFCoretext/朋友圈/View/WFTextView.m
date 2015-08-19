@@ -516,7 +516,7 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
         UIView *selectedView = [[UIView alloc] init];
         selectedView.frame = CGRectFromString([array objectAtIndex:i]);
         selectedView.backgroundColor = kUserName_SelectedColor;
-        
+        selectedView.layer.cornerRadius = 4;
         [self addSubview:selectedView];
         [_selectionsViews addObject:selectedView];
         
@@ -547,8 +547,11 @@ void Draw_Emoji_For_Line(CGContextRef context, CTLineRef line, id owner, CGPoint
     myselfSelected.tag = 10102;
     [self insertSubview:myselfSelected belowSubview:self];
     myselfSelected.backgroundColor = kSelf_SelectedColor;
-    
-    [_delegate longClickWFCoretext:@"" replyIndex:_replyIndex];
+    if (_replyIndex == -1) {
+        [_delegate longClickWFCoretext:_oldString replyIndex:_replyIndex];
+    }else{
+        [_delegate longClickWFCoretext:@"" replyIndex:_replyIndex];
+    }
 
 }
 
