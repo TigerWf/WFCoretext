@@ -342,7 +342,7 @@
         //NSLog(@"reply");
         [_delegate clickRichText:_stamp replyIndex:index];
     }else{
-        if (index == -1) {
+        if ([clickString isEqualToString:@""]) {
             //
         }else{
             [WFHudView showMsg:clickString inView:nil];
